@@ -1,0 +1,223 @@
+<div class="customers-order section">
+  <div class="container">
+    <div class="customers-order__header">
+      <a href="{{ routes.account_url }}" class="customers-order__back-link">{{ 'customer.account.return' | t }}</a>
+      <h1 class="customers-order__title">{{ 'customer.order.title' | t: name: order.name }}</h1>
+      
+      <div class="customers-order__date">
+        {{ order.created_at | date: format: 'date_at_time' }}
+      </div>
+      
+      {% if order.cancelled %}
+        <div class="customers-order__cancelled">
+          {{ 'customer.order.cancelled' | t: date: order.cancelled_at | date: format: 'date_at_time', reason: order.cancel_reason_label }}
+        </div>
+      {% endif %}
+    </div>
+    
+    <div class="customers-order__grid">
+      <div class="customers-order__details">
+        <div class="customers-order__section">
+          <h2 class="customers-order__subtitle">{{ 'customer.order.billing_address' | t }}</h2>
+          <p>
+            <strong>{{ order.billing_address.name }}</strong><br>
+            {% if order.billing_address.company %}
+              {{ order.billing_address.company }}<br>
+            {% endif %}
+            {{ order.billing_address.street }}<br>
+            {{ order.billing_address.city }}, {{ order.billing_address.province }}<br>
+            {{ order.billing_address.zip }}<br>
+            {{ order.billing_address.country }}
+          </p>
+          <p>{{ order.billing_address.phone }}</p>
+        </div>
+        
+        <div class="customers-order__section">
+          <h2 class="customers-order__subtitle">{{ 'customer.order.shipping_address' | t }}</h2>
+          <p>
+            <strong>{{ order.shipping_address.name }}</strong><br>
+            {% if order.shipping_address.company %}
+              {{ order.shipping_address.company }}<br>
+            {% endif %}
+            {{ order.shipping_address.street }}<br>
+            {{ order.shipping_address.city }}, {{ order.shipping_address.province }}<br>
+            {{ order.shipping_address.zip }}<br>
+            {{ order.shipping_address.country }}
+          </p>
+          <p>{{ order.shipping_address.phone }}</p>
+        </div>
+      </div>
+      
+      <div class="customers-order__summary">
+        <div class="customers-order__section">
+          <h2 class="customers-order__subtitle">{{ 'customer.order.summary' | t }}</h2>
+          
+          <div class="customers-order__summary-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>{{ 'customer.order.product' | t }}</th>
+                  <th>{{ 'customer.order.sku' | t }}</th>
+                  <th>{{ 'customer.order.price' | t }}</th>
+                  <th>{{ 'customer.order.quantity' | t }}</th>
+                  <th>{{ 'customer.order.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for line_item in order.line_items %}
+                  <tr>
+                    <td>
+                      {{ line_item.title | link_to: line_item.product.url }}
+                      {% if line_item.variant.title != 'Default Title' %}
+                        <div class="customers-order__variant">{{ line_item.variant.title }}</div>
+                      {% endif %}
+                      {% assign property_size = line_item.properties | size %}
+                      {% if property_size > 0 %}
+                        {% for property in line_item.properties %}
+                          {% unless property.last == blank %}
+                            <div class="customers-order__property">
+                              {{ property.first }}:
+                              {% if property.last contains '/uploads/' %}
+                                <a href="{{ property.last }}">{{ property.last | split: '/' | last }}</a>
+                              {% else %}
+                                {{ property.last }}
+                              {% endif %}
+                            </div>
+                          {% endunless %}
+                        {% endfor %}
+                      {% endif %}
+                    </td>
+                    <td>{{ line_item.sku }}</td>
+                    <td>{{ line_item.final_price | money }}</td>
+                    <td>{{ line_item.quantity }}</td>
+                    <td>{{ line_item.final_line_price | money }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4">{{ 'customer.order.subtotal' | t }}</td>
+                  <td>{{ order.subtotal_price | money }}</td>
+                </tr>
+                
+                {% for discount in order.discounts %}
+                  <tr>
+                    <td colspan="4">{{ discount.code }} {{ 'customer.order.discount' | t }}</td>
+                    <td>{{ discount.savings | money }}</td>
+                  </tr>
+                {% endfor %}
+                
+                {% for shipping_method in order.shipping_methods %}
+                  <tr>
+                    <td colspan="4">{{ shipping_method.title }}</td>
+                    <td>{{ shipping_method.price | money }}</td>
+                  </tr>
+                {% endfor %}
+                
+                {% for tax_line in order.tax_lines %}
+                  <tr>
+                    <td colspan="4">{{ tax_line.title }} {{ tax_line.rate | times: 100 }}%</td>
+                    <td>{{ tax_line.price | money }}</td>
+                  </tr>
+                {% endfor %}
+                
+                <tr>
+                  <td colspan="4">{{ 'customer.order.total' | t }}</td>
+                  <td>{{ order.total_price | money }} {{ order.currency }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        
+        <div class="customers-order__section">
+          <h2 class="customers-order__subtitle">{{ 'customer.order.payment_status' | t }}</h2>
+          <p>{{ order.financial_status_label }}</p>
+        </div>
+        
+        <div class="customers-order__section">
+          <h2 class="customers-order__subtitle">{{ 'customer.order.fulfillment_status' | t }}</h2>
+          <p>{{ order.fulfillment_status_label }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .customers-order__header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  
+  .customers-order__back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--color-accent);
+  }
+  
+  .customers-order__title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .customers-order__date {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .customers-order__cancelled {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: var(--border-radius);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .customers-order__grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+  }
+  
+  .customers-order__section {
+    margin-bottom: 2rem;
+  }
+  
+  .customers-order__subtitle {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .customers-order__variant,
+  .customers-order__property {
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .customers-order__summary-table {
+    overflow-x: auto;
+  }
+  
+  .customers-order__summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .customers-order__summary-table th,
+  .customers-order__summary-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .customers-order__summary-table tfoot tr:last-child td {
+    border-bottom: none;
+    font-weight: 600;
+  }
+  
+  @media screen and (max-width: 990px) {
+    .customers-order__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,172 @@
+<div class="search section">
+  <div class="container">
+    <div class="search__header">
+      <h1 class="search__title">{{ 'general.search.title' | t }}</h1>
+      
+      <form action="{{ routes.search_url }}" method="get" class="search__form" role="search">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" class="search__input" aria-label="{{ 'general.search.placeholder' | t }}">
+        <button type="submit" class="search__button" aria-label="{{ 'general.search.submit' | t }}">
+          {% render 'icon', name: 'search' %}
+        </button>
+      </form>
+    </div>
+    
+    {% if search.performed %}
+      {% if search.results_count > 0 %}
+        <div class="search__results-count">
+          {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+        </div>
+        
+        <div class="search__results">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              {% render 'product-card', product: item %}
+            {% elsif item.object_type == 'article' %}
+              <div class="search-result-article">
+                <h3 class="search-result-article__title">
+                  <a href="{{ item.url }}">{{ item.title }}</a>
+                </h3>
+                <p class="search-result-article__excerpt">
+                  {% if item.excerpt.size > 0 %}
+                    {{ item.excerpt }}
+                  {% else %}
+                    {{ item.content | strip_html | truncate: 150 }}
+                  {% endif %}
+                </p>
+                <a href="{{ item.url }}" class="search-result-article__link">
+                  {{ 'general.search.read_more' | t }}
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="search__no-results">
+          <h2 class="search__no-results-title">{{ 'general.search.no_results' | t }}</h2>
+          <p class="search__no-results-text">{{ 'general.search.no_results_text' | t: terms: search.terms }}</p>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .search__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .search__title {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+  }
+  
+  .search__form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .search__input {
+    flex-grow: 1;
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-foreground);
+    font-size: 1.6rem;
+  }
+  
+  .search__input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .search__button {
+    padding: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--color-foreground);
+    cursor: pointer;
+  }
+  
+  .search__results-count {
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .search__results {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+  
+  .search-result-article {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-large);
+    padding: 2rem;
+  }
+  
+  .search-result-article__title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search-result-article__title a {
+    color: var(--color-foreground);
+    transition: color var(--transition-speed);
+  }
+  
+  .search-result-article__title a:hover {
+    color: var(--color-accent);
+  }
+  
+  .search-result-article__excerpt {
+    margin-bottom: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .search-result-article__link {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  
+  .search__no-results {
+    text-align: center;
+    padding: 4rem 0;
+  }
+  
+  .search__no-results-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .search__no-results-text {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .search__results {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 990px) {
+    .search__results {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    .search__title {
+      font-size: 3rem;
+    }
+    
+    .search__results {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

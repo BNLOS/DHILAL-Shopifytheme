@@ -1,0 +1,72 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__block">
+        <h3>{{ 'footer.about' | t }}</h3>
+        <p>{{ settings.footer_about }}</p>
+      </div>
+      
+      <div class="footer__block">
+        <h3>{{ 'footer.quick_links' | t }}</h3>
+        <ul>
+          {% for link in linklists.footer.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer__block">
+        <h3>{{ 'footer.contact' | t }}</h3>
+        <ul>
+          <li>{{ settings.footer_address }}</li>
+          <li>{{ settings.footer_phone }}</li>
+          <li>{{ settings.footer_email }}</li>
+        </ul>
+      </div>
+      
+      <div class="footer__block">
+        <h3>{{ 'footer.newsletter' | t }}</h3>
+        <p>{{ settings.footer_newsletter_text }}</p>
+        {% form 'customer' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="footer__newsletter-form">
+            <input type="email" name="contact[email]" placeholder="{{ 'footer.email_placeholder' | t }}" required>
+            <button type="submit" class="button">{{ 'footer.subscribe' | t }}</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+    
+    <div class="footer__bottom">
+      <div class="footer__copyright">
+        &copy; {{ 'now' | date: "%Y" }}, {{ shop.name }}. {{ 'footer.all_rights_reserved' | t }}
+      </div>
+      
+      <div class="footer__social">
+        {% if settings.social_facebook_link != blank %}
+          <a href="{{ settings.social_facebook_link }}" class="footer__social-icon" aria-label="Facebook">
+            {% render 'icon', name: 'facebook' %}
+          </a>
+        {% endif %}
+        
+        {% if settings.social_instagram_link != blank %}
+          <a href="{{ settings.social_instagram_link }}" class="footer__social-icon" aria-label="Instagram">
+            {% render 'icon', name: 'instagram' %}
+          </a>
+        {% endif %}
+        
+        {% if settings.social_twitter_link != blank %}
+          <a href="{{ settings.social_twitter_link }}" class="footer__social-icon" aria-label="Twitter">
+            {% render 'icon', name: 'twitter' %}
+          </a>
+        {% endif %}
+        
+        {% if settings.social_youtube_link != blank %}
+          <a href="{{ settings.social_youtube_link }}" class="footer__social-icon" aria-label="YouTube">
+            {% render 'icon', name: 'youtube' %}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>

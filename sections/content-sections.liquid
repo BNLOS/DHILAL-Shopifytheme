@@ -1,0 +1,412 @@
+{%- comment -%}
+  This section combines multiple content sections that can be selected via section settings.
+  It includes: image with text, video section, testimonials, newsletter, and FAQ.
+{%- endcomment -%}
+
+{% schema %}
+{
+  "name": "Content Sections",
+  "settings": [
+    {
+      "type": "select",
+      "id": "section_type",
+      "label": "Section Type",
+      "options": [
+        {
+          "value": "image_with_text",
+          "label": "Image with Text"
+        },
+        {
+          "value": "video",
+          "label": "Video Section"
+        },
+        {
+          "value": "testimonials",
+          "label": "Testimonials"
+        },
+        {
+          "value": "newsletter",
+          "label": "Newsletter"
+        },
+        {
+          "value": "faq",
+          "label": "FAQ"
+        }
+      ],
+      "default": "image_with_text"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Section Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Section description goes here.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL",
+      "accept": ["youtube", "vimeo"]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "John Doe"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>This is a testimonial content.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Our return policy is 30 days.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Content Sections",
+      "category": "Custom Content"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="section {% if section.settings.section_type == 'video' %}video-section{% endif %}">
+  <div class="container">
+    {% case section.settings.section_type %}
+      {% when 'image_with_text' %}
+        <div class="image-with-text animate-fade-in">
+          <div class="image-with-text__grid">
+            <div class="image-with-text__image">
+              {% if section.settings.image != blank %}
+                <img src="{{ section.settings.image | image_url: width: 800 }}" alt="{{ section.settings.image.alt }}">
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <div class="image-with-text__content">
+              <h2 class="image-with-text__title">{{ section.settings.title }}</h2>
+              <div class="image-with-text__description">{{ section.settings.description }}</div>
+              {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+                <a href="{{ section.settings.button_link }}" class="button">{{ section.settings.button_label }}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      
+      {% when 'video' %}
+        <div class="video-section animate-fade-in">
+          <h2 class="video-section__title">{{ section.settings.title }}</h2>
+          <div class="video-section__description">{{ section.settings.description }}</div>
+          <div class="video-section__wrapper">
+            {% if section.settings.video_url != blank %}
+              <div class="video-section__video">
+                {% if section.settings.video_url.type == 'youtube' %}
+                  <iframe src="https://www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% elsif section.settings.video_url.type == 'vimeo' %}
+                  <iframe src="https://player.vimeo.com/video/{{ section.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+                {% endif %}
+              </div>
+            {% else %}
+              <div class="video-section__placeholder">
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      
+      {% when 'testimonials' %}
+        <div class="testimonials animate-fade-in">
+          <h2 class="testimonials__title">{{ section.settings.title }}</h2>
+          <div class="testimonials__description">{{ section.settings.description }}</div>
+          <div class="testimonials__grid">
+            {% for block in section.blocks %}
+              {% if block.type == 'testimonial' %}
+                <div class="testimonial-card animate-fade-in">
+                  <div class="testimonial-card__content">
+                    <p>{{ block.settings.content }}</p>
+                  </div>
+                  <div class="testimonial-card__author">
+                    {% if block.settings.avatar != blank %}
+                      <img src="{{ block.settings.avatar | image_url: width: 100 }}" alt="{{ block.settings.author }}" class="testimonial-card__avatar">
+                    {% endif %}
+                    <h4>{{ block.settings.author }}</h4>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      
+      {% when 'newsletter' %}
+        <div class="newsletter animate-fade-in">
+          <div class="newsletter__inner">
+            <h2 class="newsletter__title">{{ section.settings.title }}</h2>
+            <div class="newsletter__description">{{ section.settings.description }}</div>
+            {% form 'customer' %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <div class="newsletter__form">
+                <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.email_placeholder' | t }}" required>
+                <button type="submit" class="button">{{ section.settings.button_label }}</button>
+              </div>
+            {% endform %}
+          </div>
+        </div>
+      
+      {% when 'faq' %}
+        <div class="faq animate-fade-in">
+          <h2 class="faq__title">{{ section.settings.title }}</h2>
+          <div class="faq__description">{{ section.settings.description }}</div>
+          <div class="faq__items">
+            {% for block in section.blocks %}
+              {% if block.type == 'faq_item' %}
+                <div class="faq-item animate-fade-in">
+                  <button class="faq-item__question">
+                    {{ block.settings.question }}
+                    {% render 'icon', name: 'plus' %}
+                  </button>
+                  <div class="faq-item__answer">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+    {% endcase %}
+  </div>
+</div>
+
+<style>
+  .image-with-text__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .image-with-text__image {
+    overflow: hidden;
+    border-radius: var(--border-radius-large);
+  }
+  
+  .image-with-text__image img {
+    width: 100%;
+    height: auto;
+    transition: transform var(--transition-speed);
+  }
+  
+  .image-with-text:hover .image-with-text__image img {
+    transform: scale(1.05);
+  }
+  
+  .image-with-text__title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .image-with-text__description {
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .video-section__wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--border-radius-large);
+  }
+  
+  .video-section__video iframe,
+  .video-section__placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .testimonial-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius-large);
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .testimonial-card__content {
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+  
+  .testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .testimonial-card__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .newsletter__inner {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .newsletter__title {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .newsletter__description {
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .newsletter__form {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .newsletter__form input {
+    flex-grow: 1;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--color-foreground);
+  }
+  
+  .faq-item {
+    margin-bottom: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .faq-item__question {
+    width: 100%;
+    padding: 1.5rem;
+    text-align: left;
+    background: none;
+    border: none;
+    color: var(--color-foreground);
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .faq-item__answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-speed), padding var(--transition-speed);
+  }
+  
+  .faq-item.active .faq-item__answer {
+    max-height: 500px;
+    padding: 0 1.5rem 1.5rem;
+  }
+  
+  @media screen and (max-width: 990px) {
+    .image-with-text__grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .newsletter__form {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-item__question');
+      
+      question.addEventListener('click', function() {
+        item.classList.toggle('active');
+      });
+    });
+  });
+</script>

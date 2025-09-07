@@ -1,0 +1,78 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Refreshing page"
+  },
+  "general": {
+    "search": "Search",
+    "close": "Close",
+    "continue_shopping": "Continue shopping",
+    "view_cart": "View cart",
+    "loading": "Loading..."
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "empty_message": "Add some items to your cart to continue.",
+    "subtotal": "Subtotal",
+    "checkout": "Checkout",
+    "cart_error": "Error",
+    "cart_quantity_error_html": "You can only add [quantity] of this item to your cart.",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "update": "Update",
+    "shipping": "Free shipping on orders over $50"
+  },
+  "collections": {
+    "general": {
+      "title": "Collections",
+      "view_all": "View all",
+      "no_matches": "No products found",
+      "filter": "Filter",
+      "sort_by": "Sort by",
+      "featured": "Featured",
+      "best_selling": "Best selling",
+      "alphabetically": "Alphabetically, A-Z",
+      "alphabetically_reversed": "Alphabetically, Z-A",
+      "price_ascending": "Price, low to high",
+      "price_descending": "Price, high to low",
+      "date_descending": "Date, new to old"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "shipping": "Free shipping",
+      "return_policy": "30-day returns",
+      "share": "Share",
+      "view_full_details": "View full details",
+      "related_products": "Related products"
+    }
+  },
+  "footer": {
+    "about": "About Us",
+    "quick_links": "Quick Links",
+    "contact": "Contact Us",
+    "newsletter": "Newsletter",
+    "subscribe": "Subscribe",
+    "email_placeholder": "Your email address",
+    "all_rights_reserved": "All rights reserved"
+  },
+  "features": {
+    "feature_1": "Modern Design",
+    "feature_1_description": "Clean, minimalist aesthetic with a focus on user experience.",
+    "feature_2": "Dark Mode",
+    "feature_2_description": "Easy on the eyes with our carefully crafted dark color scheme.",
+    "feature_3": "Fully Responsive",
+    "feature_3_description": "Looks great on all devices, from mobile to desktop.",
+    "feature_4": "Fast Performance",
+    "feature_4_description": "Optimized for speed and smooth interactions.",
+    "feature_5": "SEO Optimized",
+    "feature_5_description": "Built with search engine optimization best practices.",
+    "feature_6": "RTL Support",
+    "feature_6_description": "Full support for right-to-left languages like Arabic."
+  }
+}

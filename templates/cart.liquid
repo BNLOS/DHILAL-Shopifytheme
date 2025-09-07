@@ -1,0 +1,31 @@
+<div class="cart">
+  <div class="container">
+    <h1 class="cart__title">{{ 'cart.general.title' | t }}</h1>
+    
+    {% if cart.item_count > 0 %}
+      <div class="cart__items">
+        {% for item in cart.items %}
+          {% render 'cart-item', item: item %}
+        {% endfor %}
+      </div>
+      
+      <div class="cart__footer">
+        <div class="cart__subtotal">
+          {{ 'cart.general.subtotal' | t }}: {{ cart.total_price | money }}
+        </div>
+        
+        <button class="button cart__checkout" name="checkout">
+          {{ 'cart.general.checkout' | t }}
+        </button>
+      </div>
+    {% else %}
+      <div class="cart__empty">
+        <h2 class="cart__empty-title">{{ 'cart.general.empty' | t }}</h2>
+        <p class="cart__empty-text">{{ 'cart.general.empty_message' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button">
+          {{ 'cart.general.continue_shopping' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>

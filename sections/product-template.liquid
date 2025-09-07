@@ -1,0 +1,99 @@
+<div class="product">
+  <div class="container">
+    <div class="product__wrapper">
+      <div class="product__media">
+        <div class="product__media-main">
+          {% for media in product.media %}
+            {% if media.media_type == 'image' %}
+              <img src="{{ media | image_url: width: 800 }}" alt="{{ media.alt }}" {% if forloop.first %}class="active"{% endif %}>
+            {% elsif media.media_type == 'video' %}
+              {{ media | video_tag: controls: true, autoplay: false, loop: false, muted: false, class: "active" }}
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        {% if product.media.size > 1 %}
+          <div class="product__media-thumbnails">
+            {% for media in product.media %}
+              {% if media.media_type == 'image' %}
+                <div class="product__media-thumbnail {% if forloop.first %}active{% endif %}">
+                  <img src="{{ media | image_url: width: 200 }}" alt="{{ media.alt }}">
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      
+      <div class="product__info">
+        <h1 class="product__title">{{ product.title }}</h1>
+        
+        {% if product.vendor %}
+          <div class="product__vendor">{{ product.vendor }}</div>
+        {% endif %}
+        
+        <div class="product__price">
+          <span class="product__price-regular">{{ product.price | money }}</span>
+          
+          {% if product.compare_at_price > product.price %}
+            <span class="product__price-sale">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+        </div>
+        
+        <div class="product__description">
+          {{ product.description }}
+        </div>
+        
+        {% form 'product', product %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {% unless product.has_only_default_variant %}
+            <div class="product__options">
+              {% for option in product.options_with_values %}
+                <div class="product__option">
+                  <label class="product__option-label">{{ option.name }}</label>
+                  <select class="product__option-select" name="options[{{ option.name }}]">
+                    {% for value in option.values %}
+                      <option value="{{ value }}" {% if option.selected_value == value %}selected{% endif %}>
+                        {{ value }}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            </div>
+          {% endunless %}
+          
+          <div class="product__quantity">
+            <label class="product__quantity-label">{{ 'products.product.quantity' | t }}</label>
+            <div class="quantity-selector">
+              <button type="button" class="quantity-minus">-</button>
+              <input type="number" name="quantity" value="1" min="1" class="quantity-input">
+              <button type="button" class="quantity-plus">+</button>
+            </div>
+          </div>
+          
+          <button type="submit" name="add" class="button product__add-to-cart" {% unless product.available %}disabled{% endunless %}>
+            {% if product.available %}
+              {{ 'products.product.add_to_cart' | t }}
+            {% else %}
+              {{ 'products.product.sold_out' | t }}
+            {% endif %}
+          </button>
+        {% endform %}
+        
+        <div class="product__additional-info">
+          <div class="product__additional-info-item">
+            {% render 'icon', name: 'truck' %}
+            <span>{{ 'products.product.shipping' | t }}</span>
+          </div>
+          
+          <div class="product__additional-info-item">
+            {% render 'icon', name: 'return' %}
+            <span>{{ 'products.product.return_policy' | t }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

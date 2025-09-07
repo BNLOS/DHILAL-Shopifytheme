@@ -1,0 +1,19 @@
+{
+  "current": {
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+        }
+      }
+    },
+    "settings": {
+      "favicon": "shopify://shop_images/favicon.png"
+    }
+  }
+}
