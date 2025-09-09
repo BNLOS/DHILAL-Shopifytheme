@@ -1,644 +1,87 @@
-<!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}" dir="{% if request.locale.primary %}ltr{% else %}rtl{% endif %}">
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction }}">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <link rel="canonical" href="{{ canonical_url }}">
   
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-  
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <title>{{ shop.name }} - {{ page_title }}</title>
-  
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+    {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
+  {%- endif -%}
+
+  {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+    <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+  {%- endunless -%}
+
+  <title>{{ page_title }}</title>
+
+  {% style %}
+    {{ settings.type_body_font | font_face: font_display: 'swap' }}
+    {{ settings.type_header_font | font_face: font_display: 'swap' }}
+  {% endstyle %}
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
-  {{ content_for_header }}
-  
-  <style>
-    /* ===== GLOBAL STYLES ===== */
-    :root {
-      --color-bg: #000000;
-      --color-text: #ffffff;
-      --color-border: #ffffff;
-      --color-accent: #ffffff;
-      --spacing-unit: 1rem;
-      --transition-speed: 0.3s;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    
-    /* RTL Support */
-    [dir="rtl"] {
-      text-align: right;
-    }
-    
-    [dir="rtl"] .ms-auto {
-      margin-left: 0 !important;
-      margin-right: auto !important;
-    }
-    
-    [dir="rtl"] .me-auto {
-      margin-right: 0 !important;
-      margin-left: auto !important;
-    }
-    
-    a {
-      color: var(--color-text);
-      text-decoration: none;
-      transition: opacity var(--transition-speed);
-    }
-    
-    a:hover {
-      opacity: 0.7;
-    }
-    
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-    
-    .btn-dark-custom {
-      background-color: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-      transition: all var(--transition-speed);
-    }
-    
-    .btn-dark-custom::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      {% if request.locale.primary %}left: 0{% else %}right: 0{% endif %};
-      width: 0;
-      height: 100%;
-      background-color: var(--color-text);
-      transition: width var(--transition-speed);
-      z-index: -1;
-    }
-    
-    .btn-dark-custom:hover::before {
-      width: 100%;
-    }
-    
-    .btn-dark-custom:hover {
-      color: var(--color-bg);
-    }
-    
-    /* Header Styles */
-    .header {
-      background-color: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--color-border);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-    }
-    
-    .navbar-dark-custom .navbar-nav .nav-link {
-      color: var(--color-text);
-      position: relative;
-      padding: 0.5rem 1rem;
-    }
-    
-    .navbar-dark-custom .navbar-nav .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      {% if request.locale.primary %}left: 0{% else %}right: 0{% endif %};
-      width: 0;
-      height: 1px;
-      background-color: var(--color-text);
-      transition: width var(--transition-speed);
-    }
-    
-    .navbar-dark-custom .navbar-nav .nav-link:hover::after {
-      width: 100%;
-    }
-    
-    .cart-icon {
-      position: relative;
-    }
-    
-    .cart-count {
-      position: absolute;
-      top: -8px;
-      {% if request.locale.primary %}right: -8px{% else %}left: -8px{% endif %};
-      background-color: var(--color-text);
-      color: var(--color-bg);
-      font-size: 0.7rem;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .language-switcher {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    
-    .language-switcher select {
-      background-color: transparent;
-      border: 1px solid var(--color-border);
-      color: var(--color-text);
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-    }
-    
-    /* Hero Section */
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      margin-top: 80px;
-    }
-    
-    .hero-bg {
-      position: absolute;
-      top: 0;
-      {% if request.locale.primary %}left: 0{% else %}right: 0{% endif %};
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.2;
-    }
-    
-    /* Product Card */
-    .product-card {
-      border: 1px solid var(--color-border);
-      overflow: hidden;
-      transition: transform var(--transition-speed);
-      position: relative;
-      height: 100%;
-    }
-    
-    .product-card:hover {
-      transform: translateY(-10px);
-    }
-    
-    .product-image {
-      height: 250px;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform var(--transition-speed);
-    }
-    
-    .product-card:hover .product-image img {
-      transform: scale(1.1);
-    }
-    
-    .product-badge {
-      position: absolute;
-      top: 10px;
-      {% if request.locale.primary %}left: 10px{% else %}right: 10px{% endif %};
-      background-color: var(--color-text);
-      color: var(--color-bg);
-      padding: 0.3rem 0.8rem;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-    
-    /* Testimonials */
-    .testimonial-card {
-      border: 1px solid var(--color-border);
-      padding: 2rem;
-      position: relative;
-      height: 100%;
-    }
-    
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .testimonial-text::before {
-      content: '"';
-      font-size: 3rem;
-      position: absolute;
-      top: -20px;
-      {% if request.locale.primary %}left: 0{% else %}right: 0{% endif %};
-      opacity: 0.3;
-    }
-    
-    /* Footer */
-    .footer {
-      border-top: 1px solid var(--color-border);
-      padding: 3rem 0;
-      margin-top: 3rem;
-    }
-    
-    .footer-column h3 {
-      margin-bottom: 1.5rem;
-      position: relative;
-      display: inline-block;
-    }
-    
-    .footer-column h3::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      {% if request.locale.primary %}left: 0{% else %}right: 0{% endif %};
-      width: 30px;
-      height: 1px;
-      background-color: var(--color-border);
-    }
-    
-    /* Animations */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    
-    .fade-in.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .hero-title {
-        font-size: 2rem;
-      }
-      
-      .product-card {
-        margin-bottom: 1.5rem;
-      }
-    }
-  </style>
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 </head>
-<body>
-  <!-- HEADER -->
-  <header class="header">
-    <nav class="navbar navbar-expand-lg navbar-dark-custom">
-      <div class="container">
-        <a class="navbar-brand" href="/">{{ shop.name }}</a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav {% if request.locale.primary %}ms-auto{% else %}me-auto{% endif %}">
-            <li class="nav-item">
-              <a class="nav-link" href="#home">{{ 'header.home' | t }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#products">{{ 'header.products' | t }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#about">{{ 'header.about' | t }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#testimonials">{{ 'header.testimonials' | t }}</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">{{ 'header.contact' | t }}</a>
-            </li>
-          </ul>
-          
-          <div class="d-flex align-items-center {% if request.locale.primary %}ms-3{% else %}me-3{% endif %}">
-            <!-- Language Switcher -->
-            <div class="language-switcher">
-              <i class="fas fa-globe"></i>
-              <select id="language-selector" onchange="changeLanguage(this.value)">
-                {% for locale in shop.published_locales %}
-                  <option value="{{ locale.iso_code }}" {% if locale.iso_code == request.locale.iso_code %}selected{% endif %}>
-                    {{ locale.name }}
-                  </option>
-                {% endfor %}
-              </select>
-            </div>
-            
-            <!-- Cart Icon -->
-            <a href="/cart" class="cart-icon {% if request.locale.primary %}ms-3{% else %}me-3{% endif %}">
-              <i class="fas fa-shopping-cart"></i>
-              <span class="cart-count">{{ cart.item_count }}</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
 
-  <!-- HERO SECTION -->
-  <section class="hero" id="home">
-    <div class="hero-bg">
-      {% if settings.hero_image %}
-        <img src="{{ settings.hero_image | img_url: 'master' }}" alt="{{ settings.hero_image.alt }}">
-      {% else %}
-        <img src="https://images.unsplash.com/photo-1556740738-b6a63f274460?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Hero Background">
-      {% endif %}
-    </div>
-    <div class="container">
-      <div class="hero-content">
-        <h1 class="hero-title fade-in">{{ settings.hero_title | default: 'Welcome to Our Store' }}</h1>
-        <p class="hero-subtitle fade-in">{{ settings.hero_subtitle | default: 'Discover our exclusive collection of high-quality products' }}</p>
-        <a href="#products" class="btn btn-dark-custom hero-btn fade-in">{{ 'hero.shop_now' | t }}</a>
-      </div>
-    </div>
-  </section>
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{{ page_title | handle | prepend: ' ' }}">
+  <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+    {{ 'accessibility.skip_to_text' | t }}
+  </a>
 
-  <!-- FEATURED PRODUCTS -->
-  <section class="py-5" id="products">
-    <div class="container">
-      <h2 class="text-center mb-5 section-title">{{ 'products.featured' | t }}</h2>
-      
-      <div class="row">
-        {% for product in collections.frontpage.products limit: 4 %}
-          <div class="col-md-6 col-lg-3 mb-4">
-            <div class="product-card fade-in">
-              <div class="product-image">
-                <img src="{{ product.featured_image | img_url: 'medium' }}" alt="{{ product.title }}">
-                {% if product.compare_at_price > product.price %}
-                  <span class="product-badge">{{ 'products.sale' | t }}</span>
-                {% endif %}
-              </div>
-              <div class="p-3">
-                <h3 class="product-title">{{ product.title }}</h3>
-                <p class="product-price">
-                  {% if product.compare_at_price > product.price %}
-                    <span class="text-decoration-line-through">{{ product.compare_at_price | money }}</span>
-                    <span class="ms-2">{{ product.price | money }}</span>
-                  {% else %}
-                    {{ product.price | money }}
-                  {% endif %}
-                </p>
-                <form method="post" action="/cart/add">
-                  <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                  <button type="submit" class="btn btn-dark-custom w-100">{{ 'products.add_to_cart' | t }}</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  {% section 'header' %}
 
-  <!-- ABOUT SECTION -->
-  <section class="py-5" id="about">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <div class="about-image fade-in">
-            {% if settings.about_image %}
-              <img src="{{ settings.about_image | img_url: 'master' }}" alt="{{ settings.about_image.alt }}">
-            {% else %}
-              <img src="https://images.unsplash.com/photo-1556740738-b6a63f274460?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="About Us">
-            {% endif %}
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="about-content fade-in">
-            <h2 class="about-title">{{ 'about.title' | t }}</h2>
-            <p class="about-text">{{ settings.about_text | default: 'We are a leading company in providing high-quality products at competitive prices. Founded in 2010, we strive to provide the best shopping experience for our customers.' }}</p>
-            <p class="about-text">{{ settings.about_text_2 | default: 'We believe in the importance of quality and innovation, and that is why we choose our products carefully from the best manufacturers around the world. Our goal is to be your first choice when shopping online.' }}</p>
-            <a href="#products" class="btn btn-dark-custom">{{ 'about.view_products' | t }}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
 
-  <!-- TESTIMONIALS -->
-  <section class="py-5" id="testimonials">
-    <div class="container">
-      <h2 class="text-center mb-5 section-title">{{ 'testimonials.title' | t }}</h2>
-      
-      <div class="row">
-        {% for i in (1..4) %}
-          <div class="col-md-6 col-lg-3 mb-4">
-            <div class="testimonial-card fade-in">
-              <p class="testimonial-text">{{ 'testimonials.text_' | append: i | t }}</p>
-              <p class="testimonial-author">{{ 'testimonials.author_' | append: i | t }}</p>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
+  {% section 'footer' %}
 
-  <!-- NEWSLETTER -->
-  <section class="py-5" id="contact">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <h2 class="text-center mb-4">{{ 'newsletter.title' | t }}</h2>
-          <p class="text-center mb-4">{{ 'newsletter.subtitle' | t }}</p>
-          
-          {% form 'customer' %}
-            {{ form.errors | default_errors }}
-            
-            {% if form.posted_successfully? %}
-              <div class="alert alert-success">
-                {{ 'newsletter.success' | t }}
-              </div>
-            {% else %}
-              <div class="input-group mb-3">
-                <input type="email" name="contact[email]" class="form-control" placeholder="{{ 'newsletter.placeholder' | t }}" required>
-                <button class="btn btn-dark-custom" type="submit">{{ 'newsletter.subscribe' | t }}</button>
-              </div>
-            {% endif %}
-          {% endform %}
-        </div>
-      </div>
-    </div>
-  </section>
+  <ul hidden>
+    <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
+  </ul>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="footer-column fade-in">
-            <h3>{{ 'footer.about' | t }}</h3>
-            <p>{{ settings.footer_about | default: 'We are a company specializing in providing high-quality products at competitive prices. Founded in 2010, we strive to provide the best shopping experience for our customers.' }}</p>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="footer-column fade-in">
-            <h3>{{ 'footer.quick_links' | t }}</h3>
-            <ul class="list-unstyled">
-              <li><a href="#home">{{ 'footer.home' | t }}</a></li>
-              <li><a href="#products">{{ 'footer.products' | t }}</a></li>
-              <li><a href="#about">{{ 'footer.about' | t }}</a></li>
-              <li><a href="#testimonials">{{ 'footer.testimonials' | t }}</a></li>
-              <li><a href="#contact">{{ 'footer.contact' | t }}</a></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="footer-column fade-in">
-            <h3>{{ 'footer.contact' | t }}</h3>
-            <ul class="list-unstyled">
-              <li><i class="fas fa-envelope"></i> {{ shop.email }}</li>
-              <li><i class="fas fa-phone"></i> {{ shop.phone }}</li>
-              <li><i class="fas fa-map-marker-alt"></i> {{ shop.address }}</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="col-md-6 col-lg-3 mb-4">
-          <div class="footer-column fade-in">
-            <h3>{{ 'footer.follow' | t }}</h3>
-            <div class="d-flex gap-3">
-              {% if settings.social_facebook_link %}
-                <a href="{{ settings.social_facebook_link }}"><i class="fab fa-facebook-f"></i></a>
-              {% endif %}
-              {% if settings.social_twitter_link %}
-                <a href="{{ settings.social_twitter_link }}"><i class="fab fa-twitter"></i></a>
-              {% endif %}
-              {% if settings.social_instagram_link %}
-                <a href="{{ settings.social_instagram_link }}"><i class="fab fa-instagram"></i></a>
-              {% endif %}
-              {% if settings.social_youtube_link %}
-                <a href="{{ settings.social_youtube_link }}"><i class="fab fa-youtube"></i></a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="text-center pt-3 border-top border-light">
-            <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ 'footer.copyright' | t }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <script>
+    window.shopUrl = '{{ shop.url }}';
+    window.routes = {
+      cart_add_url: '{{ routes.cart_add_url }}',
+      cart_change_url: '{{ routes.cart_change_url }}',
+      cart_update_url: '{{ routes.cart_update_url }}',
+      predictive_search_url: '{{ routes.predictive_search_url }}'
+    };
+
+    window.cartStrings = {
+      error: `{{ 'sections.cart.cart_error' | t }}`,
+      quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+    }
+
+    window.variantStrings = {
+      addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+      soldOut: `{{ 'products.product.sold_out' | t }}`,
+      unavailable: `{{ 'products.product.unavailable' | t }}`,
+    }
+  </script>
 
   <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-  
-  <script>
-    // Language switching functionality
-    function changeLanguage(localeCode) {
-      const currentUrl = new URL(window.location.href);
-      const pathParts = currentUrl.pathname.split('/').filter(part => part);
-      
-      // Check if the first part of the path is a locale code
-      if (pathParts.length > 0 && ['en', 'ar'].includes(pathParts[0])) {
-        pathParts[0] = localeCode;
-      } else {
-        pathParts.unshift(localeCode);
-      }
-      
-      const newPath = '/' + pathParts.join('/');
-      currentUrl.pathname = newPath;
-      
-      window.location.href = currentUrl.toString();
-    }
-    
-    // Intersection Observer for fade-in animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, observerOptions);
-    
-    const fadeElements = document.querySelectorAll('.fade-in');
-    fadeElements.forEach(element => {
-      observer.observe(element);
-    });
-    
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          window.scrollTo({
-            top: target.offsetTop - 80,
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-    
-    // Add to cart notification
-    document.querySelectorAll('form[action="/cart/add"]').forEach(form => {
-      form.addEventListener('submit', function(e) {
-        // Let the form submit normally
-        setTimeout(() => {
-          // Show notification
-          const notification = document.createElement('div');
-          notification.textContent = '{{ 'products.added_to_cart' | t }}';
-          notification.className = 'alert alert-success position-fixed';
-          notification.style.cssText = 'bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; min-width: 300px;';
-          
-          document.body.appendChild(notification);
-          
-          setTimeout(() => {
-            notification.remove();
-          }, 3000);
-        }, 500);
-      });
-    });
-  </script>
-  
-  {{ content_for_layout }}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {{ 'theme.js' | asset_url | script_tag }}
 </body>
 </html>
