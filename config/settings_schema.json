@@ -1,127 +1,82 @@
 [
   {
-    "name": "theme_info",
-    "theme_name": "Noir RTL",
-    "theme_version": "1.0.0",
-    "theme_author": "Your Store",
-    "theme_documentation_url": "https://help.shopify.com/",
-    "theme_support_url": "https://support.shopify.com/"
-  },
-  {
-    "name": "Logo",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "logo",
-        "label": "Logo image"
-      },
-      {
-        "type": "range",
-        "id": "logo_width",
-        "min": 50,
-        "max": 300,
-        "step": 10,
-        "unit": "px",
-        "label": "Logo width",
-        "default": 150
-      }
-    ]
-  },
-  {
-    "name": "Colors",
+    "name": "Theme Settings",
     "settings": [
       {
         "type": "header",
-        "content": "Theme uses black and white only"
-      }
-    ]
-  },
-  {
-    "name": "Typography",
-    "settings": [
-      {
-        "type": "font_picker",
-        "id": "type_header_font",
-        "default": "helvetica_n7",
-        "label": "Heading font"
-      },
-      {
-        "type": "font_picker",
-        "id": "type_body_font",
-        "default": "helvetica_n4",
-        "label": "Body font"
-      }
-    ]
-  },
-  {
-    "name": "Animation",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "animations_enabled",
-        "default": true,
-        "label": "Enable animations"
-      },
-      {
-        "type": "range",
-        "id": "animation_duration",
-        "min": 200,
-        "max": 1000,
-        "step": 100,
-        "unit": "ms",
-        "label": "Animation duration",
-        "default": 500
-      }
-    ]
-  },
-  {
-    "name": "Social media",
-    "settings": [
-      {
-        "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook",
-        "info": "https://facebook.com/shopify"
+        "content": "Hero Section"
       },
       {
         "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram",
-        "info": "https://instagram.com/shopify"
+        "id": "hero_title",
+        "label": "Hero Title",
+        "default": "Best Products at Great Prices"
       },
       {
         "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter",
-        "info": "https://twitter.com/shopify"
+        "id": "hero_subtitle",
+        "label": "Hero Subtitle",
+        "default": "Discover our exclusive collection of high-quality products"
       },
-      {
-        "type": "text",
-        "id": "social_youtube_link",
-        "label": "YouTube",
-        "info": "https://youtube.com/shopify"
-      }
-    ]
-  },
-  {
-    "name": "Favicon",
-    "settings": [
       {
         "type": "image_picker",
-        "id": "favicon",
-        "label": "Favicon image",
-        "info": "32 x 32px .png recommended"
-      }
-    ]
-  },
-  {
-    "name": "Custom CSS",
-    "settings": [
+        "id": "hero_image",
+        "label": "Hero Background Image"
+      },
       {
-        "type": "textarea",
-        "id": "custom_css",
-        "label": "Custom CSS",
-        "info": "Add custom CSS to override theme styles"
+        "type": "header",
+        "content": "About Section"
+      },
+      {
+        "type": "richtext",
+        "id": "about_text",
+        "label": "About Text",
+        "default": "<p>We are a leading company in providing high-quality products at competitive prices.</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "about_text_2",
+        "label": "About Text (Second Paragraph)",
+        "default": "<p>We believe in the importance of quality and innovation.</p>"
+      },
+      {
+        "type": "image_picker",
+        "id": "about_image",
+        "label": "About Image"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_about",
+        "label": "Footer About Text",
+        "default": "<p>We are a company specializing in providing high-quality products at competitive prices.</p>"
+      },
+      {
+        "type": "header",
+        "content": "Social Media"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_link",
+        "label": "YouTube"
       }
     ]
   }
