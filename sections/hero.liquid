@@ -1,0 +1,93 @@
+<section class="hero animate-on-scroll" data-section-id="{{ section.id }}">
+  {%- if section.settings.image != blank -%}
+    <div class="hero__bg" data-parallax="0.5">
+      <img src="{{ section.settings.image | image_url: width: 1920 }}"
+           alt="{{ section.settings.image.alt | escape }}"
+           loading="eager"
+           width="1920"
+           height="1080">
+      <div class="hero__overlay"></div>
+    </div>
+  {%- endif -%}
+
+  <div class="container">
+    <div class="hero__content">
+      {%- if section.settings.heading != blank -%}
+        <h1 class="hero__title">
+          {{ section.settings.heading }}
+        </h1>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="hero__subtitle">
+          {{ section.settings.text }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="hero__buttons">
+          <a href="{{ section.settings.button_link }}" class="btn btn--large">
+            {{ section.settings.button_label }}
+          </a>
+          {%- if section.settings.button_label_2 != blank -%}
+            <a href="{{ section.settings.button_link_2 }}" class="btn btn--outline btn--large">
+              {{ section.settings.button_label_2 }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Welcome to the Dark Side",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "default": "Minimalist design meets maximum impact",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop Now",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "default": "Learn More",
+      "label": "Second button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Second button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

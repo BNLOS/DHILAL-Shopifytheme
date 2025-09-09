@@ -1,78 +1,128 @@
 {
-  "accessibility": {
-    "skip_to_text": "Skip to content",
-    "refresh_page": "Refreshing page"
-  },
   "general": {
-    "search": "Search",
-    "close": "Close",
-    "continue_shopping": "Continue shopping",
-    "view_cart": "View cart",
-    "loading": "Loading..."
+    "404": {
+      "title": "404 Page Not Found",
+      "subtext": "The page you were looking for does not exist",
+      "link": "Continue shopping"
+    },
+    "accessibility": {
+      "skip_to_text": "Skip to content",
+      "close": "Close",
+      "unit_price_separator": "per",
+      "error": "Error",
+      "refresh": "Refresh",
+      "loading": "Loading..."
+    },
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search our store...",
+      "submit": "Search",
+      "no_results": "No results found for \"{{ terms }}\"",
+      "results_with_count": {
+        "one": "{{ count }} result for \"{{ terms }}\"",
+        "other": "{{ count }} results for \"{{ terms }}\""
+      }
+    },
+    "newsletter": {
+      "label": "Email",
+      "success": "Thanks for subscribing",
+      "button_label": "Subscribe"
+    },
+    "social": {
+      "share_on_facebook": "Share on Facebook",
+      "share_on_twitter": "Share on Twitter",
+      "share_on_pinterest": "Pin on Pinterest"
+    }
   },
   "cart": {
-    "title": "Your Cart",
+    "title": "Shopping Cart",
     "empty": "Your cart is empty",
-    "empty_message": "Add some items to your cart to continue.",
+    "continue_shopping": "Continue shopping",
     "subtotal": "Subtotal",
-    "checkout": "Checkout",
-    "cart_error": "Error",
-    "cart_quantity_error_html": "You can only add [quantity] of this item to your cart.",
-    "remove": "Remove",
-    "quantity": "Quantity",
+    "shipping_at_checkout": "Shipping calculated at checkout",
     "update": "Update",
-    "shipping": "Free shipping on orders over $50"
-  },
-  "collections": {
-    "general": {
-      "title": "Collections",
-      "view_all": "View all",
-      "no_matches": "No products found",
-      "filter": "Filter",
-      "sort_by": "Sort by",
-      "featured": "Featured",
-      "best_selling": "Best selling",
-      "alphabetically": "Alphabetically, A-Z",
-      "alphabetically_reversed": "Alphabetically, Z-A",
-      "price_ascending": "Price, low to high",
-      "price_descending": "Price, high to low",
-      "date_descending": "Date, new to old"
-    }
+    "checkout": "Checkout",
+    "view_cart": "View Cart",
+    "close": "Close cart",
+    "quantity": "Quantity",
+    "remove": "Remove"
   },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
+      "description": "Description",
+      "on_sale": "Sale",
       "sold_out": "Sold out",
       "unavailable": "Unavailable",
+      "vendor": "Vendor",
+      "sku": "SKU",
       "quantity": "Quantity",
-      "shipping": "Free shipping",
-      "return_policy": "30-day returns",
-      "share": "Share",
-      "view_full_details": "View full details",
-      "related_products": "Related products"
+      "price": {
+        "from": "From",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "unit_price": "Unit price"
+      }
     }
   },
-  "footer": {
-    "about": "About Us",
-    "quick_links": "Quick Links",
-    "contact": "Contact Us",
-    "newsletter": "Newsletter",
-    "subscribe": "Subscribe",
-    "email_placeholder": "Your email address",
-    "all_rights_reserved": "All rights reserved"
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "cart": "Cart",
+      "account": "Account",
+      "search": "Search"
+    },
+    "footer": {
+      "copyright": "© {{ date }} {{ shop_name }}. All rights reserved.",
+      "powered_by": "Powered by Shopify"
+    }
   },
-  "features": {
-    "feature_1": "Modern Design",
-    "feature_1_description": "Clean, minimalist aesthetic with a focus on user experience.",
-    "feature_2": "Dark Mode",
-    "feature_2_description": "Easy on the eyes with our carefully crafted dark color scheme.",
-    "feature_3": "Fully Responsive",
-    "feature_3_description": "Looks great on all devices, from mobile to desktop.",
-    "feature_4": "Fast Performance",
-    "feature_4_description": "Optimized for speed and smooth interactions.",
-    "feature_5": "SEO Optimized",
-    "feature_5_description": "Built with search engine optimization best practices.",
-    "feature_6": "RTL Support",
-    "feature_6_description": "Full support for right-to-left languages like Arabic."
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "view_addresses": "View Addresses",
+      "return": "Return to Account"
+    },
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date": "Placed on {{ date }}",
+      "cancelled": "Order Cancelled on {{ date }}",
+      "cancelled_reason": "Reason: {{ reason }}",
+      "billing_address": "Billing Address",
+      "payment_status": "Payment Status",
+      "shipping_address": "Shipping Address",
+      "fulfillment_status": "Fulfillment Status",
+      "discount": "Discount",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "product": "Product",
+      "sku": "SKU",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "subtotal": "Subtotal"
+    }
   }
 }
