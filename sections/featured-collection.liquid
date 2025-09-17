@@ -1,0 +1,61 @@
+<div class="featured-collection">
+  <div class="featured-collection__inner">
+    {% if section.settings.title != blank %}
+      <h2 class="featured-collection__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    <div class="featured-collection__grid">
+      {% for product in section.settings.collection.products limit: section.settings.products_to_show %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_view_all and section.settings.collection.all_products_count > section.settings.products_to_show %}
+      <div class="featured-collection__more">
+        <a href="{{ section.settings.collection.url }}" class="btn btn--secondary">
+          {{ 'collection.view_all' | t }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "العنوان",
+      "default": "منتجات مميزة"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "المجموعة"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "عدد المنتجات المعروضة"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "إظهار زر عرض الكل"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection",
+      "category": "Collection"
+    }
+  ]
+}
+{% endschema %}

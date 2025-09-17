@@ -1,0 +1,67 @@
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__logo">
+      {{ settings.shop_name }}
+    </a>
+
+    <nav class="header__nav" role="navigation">
+      {% for link in linklists[settings.main_menu].links %}
+        {% assign child_list_handle = link.title | handleize %}
+        {% if linklists[child_list_handle].links != blank %}
+          <div class="header__nav-item has-dropdown">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            <div class="header__dropdown">
+              {% for childlink in linklists[child_list_handle].links %}
+                <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+              {% endfor %}
+            </div>
+          </div>
+        {% else %}
+          <div class="header__nav-item">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="header__icons">
+      {% if settings.show_search %}
+        <a href="/search" class="header__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+        </a>
+      {% endif %}
+      
+      {% if settings.show_account %}
+        <a href="/account" class="header__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+      {% endif %}
+      
+      {% if settings.show_cart %}
+        <a href="/cart" class="header__icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 2 6 9H3l3 9h12l3-9h-3l-3-7"></path>
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+          </svg>
+          {% if cart.item_count > 0 %}
+            <span class="cart-count">{{ cart.item_count }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,99 @@
+<footer class="footer">
+  <div class="footer__inner">
+    {% if settings.footer_menu_1 != blank %}
+      <div class="footer__column">
+        <h4>{{ linklists[settings.footer_menu_1].title }}</h4>
+        <ul>
+          {% for link in linklists[settings.footer_menu_1].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    
+    {% if settings.footer_menu_2 != blank %}
+      <div class="footer__column">
+        <h4>{{ linklists[settings.footer_menu_2].title }}</h4>
+        <ul>
+          {% for link in linklists[settings.footer_menu_2].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    
+    {% if settings.footer_menu_3 != blank %}
+      <div class="footer__column">
+        <h4>{{ linklists[settings.footer_menu_3].title }}</h4>
+        <ul>
+          {% for link in linklists[settings.footer_menu_3].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+    
+    <div class="footer__column">
+      <h4>{{ 'footer.follow_us' | t }}</h4>
+      {% if settings.show_social_icons %}
+        <div class="social-icons">
+          {% if settings.social_facebook != blank %}
+            <a href="{{ settings.social_facebook }}" target="_blank">فيسبوك</a>
+          {% endif %}
+          {% if settings.social_twitter != blank %}
+            <a href="{{ settings.social_twitter }}" target="_blank">تويتر</a>
+          {% endif %}
+          {% if settings.social_instagram != blank %}
+            <a href="{{ settings.social_instagram }}" target="_blank">إنستغرام</a>
+          {% endif %}
+          {% if settings.social_youtube != blank %}
+            <a href="{{ settings.social_youtube }}" target="_blank">يوتيوب</a>
+          {% endif %}
+          {% if settings.social_tiktok != blank %}
+            <a href="{{ settings.social_tiktok }}" target="_blank">تيك توك</a>
+          {% endif %}
+        </div>
+      {% endif %}
+      
+      {% if settings.show_newsletter %}
+        <div class="footer-newsletter">
+          <h3>{{ settings.newsletter_title }}</h3>
+          <div class="footer-newsletter-text">
+            {{ settings.newsletter_text }}
+          </div>
+          {% form 'customer' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+              <p class="form-success">{{ 'general.newsletter.confirmation' | t }}</p>
+            {% else %}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="email"
+                name="contact[email]"
+                id="Email"
+                value="{{ customer.email }}"
+                placeholder="{{ 'form.email_placeholder' | t }}"
+                autocorrect="off"
+                autocapitalize="off"
+                required>
+              <button type="submit" class="btn">{{ 'footer.subscribe' | t }}</button>
+            {% endif %}
+          {% endform %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <div class="footer__bottom">
+    <div class="footer__inner">
+      <p>&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. {{ 'footer.all_rights_reserved' | t }}</p>
+      {{ settings.footer_text }}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

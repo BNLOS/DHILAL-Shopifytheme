@@ -1,74 +1,183 @@
 [
   {
-    "name": "Theme Settings",
+    "name": "إعدادات عامة",
     "settings": [
       {
         "type": "image_picker",
-        "id": "logo",
-        "label": "Logo"
-      },
-      {
-        "type": "image_picker",
         "id": "favicon",
-        "label": "Favicon"
-      },
-      {
-        "type": "header",
-        "content": "Footer"
-      },
-      {
-        "type": "textarea",
-        "id": "footer_about",
-        "label": "About text",
-        "default": "We are a modern store focused on providing high-quality products with exceptional customer service."
+        "label": "أيقونة الموقع"
       },
       {
         "type": "text",
-        "id": "footer_address",
-        "label": "Address",
-        "default": "123 Main Street, City, Country"
+        "id": "shop_name",
+        "label": "اسم المتجر",
+        "default": "إلكترونياتكس"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "اللون الأساسي",
+        "default": "#00d4ff"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "اللون الثانوي",
+        "default": "#00ff88"
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "خط العناوين",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "خط النصوص",
+        "default": "helvetica_n4"
+      }
+    ]
+  },
+  {
+    "name": "إعدادات الشريط العلوي",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "القائمة الرئيسية"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_search",
+        "label": "إظهار زر البحث",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_account",
+        "label": "إظهار زر الحساب",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart",
+        "label": "إظهار زر السلة",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "إعدادات الفوتر",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "footer_menu_1",
+        "label": "قائمة الفوتر 1"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_2",
+        "label": "قائمة الفوتر 2"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_menu_3",
+        "label": "قائمة الفوتر 3"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_text",
+        "label": "نص الفوتر",
+        "default": "<p>متجر إلكترونياتكس - أفضل الأجهزة الإلكترونية بأسعار تنافسية</p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_social_icons",
+        "label": "إظهار أيقونات التواصل الاجتماعي",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "إعدادات المنتجات",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "إظهار اسم المورد",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_compare_price",
+        "label": "إظهار السعر قبل الخصم",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sku",
+        "label": "إظهار رمز المنتج",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_zoom",
+        "label": "تفعيل تكبير الصورة",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "إعدادات النشرة البريدية",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_newsletter",
+        "label": "إظهار نموذج النشرة البريدية",
+        "default": true
       },
       {
         "type": "text",
-        "id": "footer_phone",
-        "label": "Phone",
-        "default": "+1 (555) 123-4567"
+        "id": "newsletter_title",
+        "label": "عنوان النشرة البريدية",
+        "default": "اشترك في نشرتنا البريدية"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_text",
+        "label": "نص النشرة البريدية",
+        "default": "<p>احصل على أحدث العروض والمنتجات مباشرة في بريدك الإلكتروني</p>"
+      }
+    ]
+  },
+  {
+    "name": "إعدادات وسائل التواصل الاجتماعي",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "رابط فيسبوك"
       },
       {
         "type": "text",
-        "id": "footer_email",
-        "label": "Email",
-        "default": "info@example.com"
+        "id": "social_twitter",
+        "label": "رابط تويتر"
       },
       {
         "type": "text",
-        "id": "footer_newsletter_text",
-        "label": "Newsletter text",
-        "default": "Subscribe to our newsletter for the latest updates and offers."
+        "id": "social_instagram",
+        "label": "رابط إنستغرام"
       },
       {
-        "type": "header",
-        "content": "Social Media"
+        "type": "text",
+        "id": "social_youtube",
+        "label": "رابط يوتيوب"
       },
       {
-        "type": "url",
-        "id": "social_facebook_link",
-        "label": "Facebook"
-      },
-      {
-        "type": "url",
-        "id": "social_instagram_link",
-        "label": "Instagram"
-      },
-      {
-        "type": "url",
-        "id": "social_twitter_link",
-        "label": "Twitter"
-      },
-      {
-        "type": "url",
-        "id": "social_youtube_link",
-        "label": "YouTube"
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "رابط تيك توك"
       }
     ]
   }

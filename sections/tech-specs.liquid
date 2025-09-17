@@ -1,0 +1,67 @@
+<div class="tech-specs">
+  {% if section.settings.title != blank %}
+    <h2 class="tech-specs__title">{{ section.settings.title }}</h2>
+  {% endif %}
+  
+  <table>
+    <tbody>
+      {% for block in section.blocks %}
+        <tr {{ block.shopify_attributes }}>
+          <th>{{ block.settings.spec_name }}</th>
+          <td>{{ block.settings.spec_value }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% schema %}
+{
+  "name": "Tech Specs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "العنوان",
+      "default": "المواصفات الفنية"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "spec_name",
+          "label": "اسم المواصفة",
+          "default": "المعالج"
+        },
+        {
+          "type": "text",
+          "id": "spec_value",
+          "label": "قيمة المواصفة",
+          "default": "Intel Core i7"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tech Specs",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "spec"
+        },
+        {
+          "type": "spec"
+        },
+        {
+          "type": "spec"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

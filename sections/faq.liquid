@@ -1,0 +1,72 @@
+<div class="faq">
+  <div class="faq__inner">
+    {% if section.settings.title != blank %}
+      <h2 class="faq__title">{{ section.settings.title }}</h2>
+    {% endif %}
+    
+    <div class="faq__items">
+      {% for block in section.blocks %}
+        <div class="faq__item" {{ block.shopify_attributes }}>
+          <button class="faq__question">
+            {{ block.settings.question }}
+            <span class="faq__icon">▼</span>
+          </button>
+          <div class="faq__answer">
+            {{ block.settings.answer }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "العنوان",
+      "default": "الأسئلة الشائعة"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "السؤال",
+          "default": "ما هي مدة الشحن؟"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "الإجابة",
+          "default": "<p>مدة الشحن تتراوح بين 2-5 أيام عمل</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        },
+        {
+          "type": "question"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "banner": {
+      "type": "banner",
+      "settings": {
+        "title": "مرحباً بك في إلكترونياتكس",
+        "subtitle": "<p>أحدث الأجهزة الإلكترونية بأسعار لا تقبل المنافسة</p>",
+        "button_1_text": "تسوق الآن",
+        "button_2_text": "العروض"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "منتجات مميزة",
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "show_view_all": true
+      }
+    },
+    "multi_column": {
+      "type": "multi-column",
+      "blocks": [
+        {
+          "type": "column",
+          "settings": {
+            "title": "شحن سريع",
+            "text": "<p>نوفر شحن سريع لجميع أنحاء المملكة</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "دعم فني",
+            "text": "<p>فريق دعم فني متخصص على مدار الساعة</p>"
+          }
+        },
+        {
+          "type": "column",
+          "settings": {
+            "title": "ضمان الجودة",
+            "text": "<p>جميع منتجاتنا أصلية ومعتمدة</p>"
+          }
+        }
+      ]
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>منتج رائع جداً، أنصح به بشدة</p>",
+            "author_name": "أحمد محمد",
+            "author_title": "مدير تنفيذي"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "testimonial": "<p>خدمة ممتازة ومنتجات عالية الجودة</p>",
+            "author_name": "فاطمة عبدالله",
+            "author_title": "مصممة جرافيك"
+          }
+        }
+      ]
+    }
+  },
+  "order": [
+    "banner",
+    "featured_collection",
+    "multi_column",
+    "testimonials"
+  ]
+}

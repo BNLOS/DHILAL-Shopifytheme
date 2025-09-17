@@ -1,220 +1,35 @@
-<!DOCTYPE html>
-<html lang="{{ request.locale.iso_code }}" dir="{% if request.locale.iso_code == 'ar' %}rtl{% else %}ltr{% endif %}">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  
-  <title>
-    {{ page_title }}
-    {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t }} "{{ current_tags | join: ', ' }}"{% endif -%}
-    {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t }} {{ current_page }}{% endif -%}
-    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-  </title>
+<!doctype html>
+<html dir="rtl" lang="ar-SA">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-  {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
-  {% endif %}
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
 
-  <link rel="canonical" href="{{ canonical_url }}">
-  
-  <!-- Preconnect to external resources -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Arabic Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  
-  {{ 'application.css' | asset_url | stylesheet_tag }}
-  {% if request.locale.iso_code == 'ar' %}
-    {{ 'rtl.css' | asset_url | stylesheet_tag }}
-  {% endif %}
-  
-  <script src="{{ 'application.js' | asset_url }}" defer></script>
-  
-  {{ content_for_header }}
+    <title>{{ page_title }}</title>
 
-  <script>
-    window.theme = {
-      strings: {
-        addToCart: {{ 'products.product.add_to_cart' | t | json }},
-        soldOut: {{ 'products.product.sold_out' | t | json }},
-        unavailable: {{ 'products.product.unavailable' | t | json }},
-        cartEmpty: {{ 'cart.general.empty' | t | json }},
-        cartTermsConfirmation: {{ 'cart.general.terms_confirmation' | t | json }},
-        searchNoResults: {{ 'search.no_results' | t | json }}
-      },
-      moneyFormat: {{ shop.money_format | json }},
-      locale: {{ request.locale.iso_code | json }}
-    }
-  </script>
-</head>
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
 
-<body class="template-{{ template | split: '.' | first }} {% if customer %}customer-logged-in{% endif %}">
-  
-  <!-- Announcement Bar -->
-  {% section 'announcement-bar' %}
-  
-  <!-- Mobile Menu Overlay -->
-  <div class="mobile-menu-overlay"></div>
-  
-  <header class="site-header">
-    <div class="container">
-      <div class="header-wrapper">
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-menu-toggle" aria-label="{{ 'general.navigation.menu' | t }}">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+    {{ content_for_header }}
 
-        <!-- Logo -->
-        <a href="/" class="site-logo">
-          {% if section.settings.logo != blank %}
-            <img src="{{ section.settings.logo | image_url: width: 200 }}" 
-                 alt="{{ shop.name }}"
-                 width="200">
-          {% else %}
-            {{ shop.name }}
-          {% endif %}
-        </a>
-        
-        <!-- Navigation -->
-        <nav class="main-nav">
-          <ul>
-            {% for link in linklists.main-menu.links %}
-              <li class="{% if link.links != blank %}has-dropdown{% endif %}">
-                <a href="{{ link.url }}">
-                  {{ link.title }}
-                  {% if link.links != blank %}
-                    <i class="fas fa-chevron-down"></i>
-                  {% endif %}
-                </a>
-                {% if link.links != blank %}
-                  <ul class="dropdown-menu">
-                    {% for child_link in link.links %}
-                      <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
-                    {% endfor %}
-                  </ul>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ul>
-        </nav>
+    {% render 'social-meta-tags' %}
 
-        <!-- Header Icons -->
-        <div class="header-icons">
-          <!-- Search Icon -->
-          <button class="search-toggle" aria-label="{{ 'general.search.title' | t }}">
-            <i class="fas fa-search"></i>
-          </button>
-          
-          <!-- Account Icon -->
-          <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" 
-             aria-label="{{ 'general.navigation.account' | t }}">
-            <i class="fas fa-user"></i>
-          </a>
-          
-          <!-- Wishlist Icon -->
-          <a href="/pages/wishlist" aria-label="{{ 'general.navigation.wishlist' | t }}">
-            <i class="fas fa-heart"></i>
-            <span class="wishlist-count" data-wishlist-count>0</span>
-          </a>
-          
-          <!-- Cart Icon -->
-          <a href="{{ routes.cart_url }}" class="cart-icon" aria-label="{{ 'general.navigation.cart' | t }}">
-            <i class="fas fa-shopping-bag"></i>
-            <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Search Drawer -->
-    <div class="search-drawer">
-      <div class="container">
-        <form action="{{ routes.search_url }}" method="get" class="search-form">
-          <input type="search" 
-                 name="q" 
-                 placeholder="{{ 'general.search.placeholder' | t }}"
-                 aria-label="{{ 'general.search.placeholder' | t }}">
-          <button type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
-        <button class="search-close">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+    {{ 'script.js' | asset_url | script_tag, defer: true }}
+  </head>
 
-  <!-- Mobile Navigation -->
-  <nav class="mobile-nav">
-    <div class="mobile-nav-header">
-      <h3>{{ 'general.navigation.menu' | t }}</h3>
-      <button class="mobile-nav-close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <ul>
-      {% for link in linklists.main-menu.links %}
-        <li>
-          <a href="{{ link.url }}">{{ link.title }}</a>
-          {% if link.links != blank %}
-            <ul>
-              {% for child_link in link.links %}
-                <li><a href="{{ child_link.url }}">{{ child_link.title }}</a></li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-    <div class="mobile-nav-footer">
-      {% if customer %}
-        <a href="{{ routes.account_url }}" class="button">{{ 'customer.account.title' | t }}</a>
-      {% else %}
-        <a href="{{ routes.account_login_url }}" class="button">{{ 'customer.login.title' | t }}</a>
-      {% endif %}
-    </div>
-  </nav>
-
-  <!-- Mini Cart Drawer -->
-  <div class="mini-cart-drawer">
-    <div class="mini-cart-header">
-      <h3>{{ 'cart.general.title' | t }}</h3>
-      <button class="mini-cart-close">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div class="mini-cart-content" data-cart-content>
-      <!-- Cart items will be loaded here via AJAX -->
-    </div>
-  </div>
-
-  <main role="main" id="main-content">
-    {{ content_for_layout }}
-  </main>
-
-  <!-- Newsletter Section -->
-  {% section 'newsletter' %}
-
-  <footer class="site-footer">
+  <body class="dark-mode">
+    {% section 'header' %}
+    <main role="main">
+      {{ content_for_layout }}
+    </main>
     {% section 'footer' %}
-  </footer>
-
-  <!-- Back to Top Button -->
-  <button class="back-to-top" aria-label="{{ 'general.accessibility.back_to_top' | t }}">
-    <i class="fas fa-arrow-up"></i>
-  </button>
-
-  <!-- Loading Spinner -->
-  <div class="loading-overlay">
-    <div class="loading-spinner"></div>
-  </div>
-</body>
+  </body>
 </html>
