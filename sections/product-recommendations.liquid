@@ -1,0 +1,18 @@
+<div class="product-recommendations">
+  <div class="product-recommendations__inner">
+    <h2>{{ 'product.recommendations' | t }}</h2>
+    
+    <div class="product-recommendations__grid">
+      {% for product in recommendations.products %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": []
+}
+{% endschema %}

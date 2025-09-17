@@ -1,15 +1,15 @@
 {
   "sections": {
-    "main": {
-      "type": "main-collection",
-      "settings": {
-      }
-    },
     "banner": {
       "type": "banner",
       "settings": {
         "title": "{{ collection.title }}",
         "subtitle": "<p>{{ collection.description }}</p>"
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "settings": {
       }
     }
   },

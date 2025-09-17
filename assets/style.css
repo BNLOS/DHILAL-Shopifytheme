@@ -562,6 +562,101 @@ p {
   margin-top: 3rem;
 }
 
+/* ===== PRODUCT TEMPLATE ===== */
+.product-template {
+  padding: 4rem 0;
+}
+
+.product-template__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.product-template__media {
+  display: grid;
+  gap: 1rem;
+}
+
+.product-media {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #333;
+}
+
+.product-media img,
+.product-media video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.product-template__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+
+.product-price__current {
+  color: #00ff88;
+  font-weight: 700;
+}
+
+.product-price__compare {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 1.2rem;
+}
+
+/* ===== COLLECTION TEMPLATE ===== */
+.collection-template {
+  padding: 4rem 0;
+}
+
+.collection-template__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* ===== PRODUCT RECOMMENDATIONS ===== */
+.product-recommendations {
+  padding: 4rem 0;
+  background: #111111;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.product-recommendations__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.product-recommendations__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
 /* ===== RESPONSIVE ===== */
 @media screen and (max-width: 768px) {
   .header__nav {
@@ -581,6 +676,15 @@ p {
   .banner__buttons {
     flex-direction: column;
     align-items: center;
+  }
+  
+  .product-template__inner {
+    grid-template-columns: 1fr;
+  }
+  
+  .collection-grid,
+  .product-recommendations__grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 

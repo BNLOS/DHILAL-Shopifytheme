@@ -22,7 +22,8 @@
     "quantity": "الكمية",
     "in_stock": "متوفر",
     "out_of_stock": "غير متوفر",
-    "add_to_wishlist": "أضف إلى المفضلة"
+    "add_to_wishlist": "أضف إلى المفضلة",
+    "recommendations": "قد يعجبك أيضاً"
   },
   "collection": {
     "filter_by": "تصفية حسب",

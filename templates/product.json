@@ -2,34 +2,6 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {
-          }
-        },
-        "price": {
-          "type": "price",
-          "settings": {
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-          }
-        }
-      },
-      "block_order": [
-        "title",
-        "price",
-        "description",
-        "buy_buttons"
-      ],
       "settings": {
       }
     },
@@ -40,29 +12,9 @@
     },
     "tech_specs": {
       "type": "tech-specs",
-      "blocks": [
-        {
-          "type": "spec",
-          "settings": {
-            "spec_name": "المعالج",
-            "spec_value": "Intel Core i7"
-          }
-        },
-        {
-          "type": "spec",
-          "settings": {
-            "spec_name": "الذاكرة",
-            "spec_value": "16GB RAM"
-          }
-        },
-        {
-          "type": "spec",
-          "settings": {
-            "spec_name": "التخزين",
-            "spec_value": "512GB SSD"
-          }
-        }
-      ]
+      "settings": {
+        "title": "المواصفات الفنية"
+      }
     }
   },
   "order": [
