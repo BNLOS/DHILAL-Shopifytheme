@@ -1,35 +1,287 @@
-<!doctype html>
-<html dir="rtl" lang="ar-SA">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  
+  {%- capture seo_title -%}
+    {{ page_title }} - {{ shop.name }}
+  {%- endcapture -%}
+  <title>{{ seo_title }}</title>
+  
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+  
+  {{ 'styles.css' | asset_url | stylesheet_tag }}
+  {{ 'scripts.js' | asset_url | script_tag }}
+  
+  {{ content_for_header }}
+</head>
+<body class="dark-mode">
+  <!-- Accessibility skip link -->
+  <a href="#main-content" class="skip-link">تخطي إلى المحتوى الرئيسي</a>
+  
+  <!-- Header with Navigation -->
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="header-top">
+        <div class="logo">
+          <a href="/" class="logo-link">
+            {% if settings.logo %}
+              {{ settings.logo | image_url: width: 200 | image_tag: alt: shop.name, class: 'logo-img' }}
+            {% else %}
+              <span class="logo-text">{{ shop.name }}</span>
+            {% endif %}
+          </a>
+        </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" aria-label="فتح القائمة">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        
+        <!-- Desktop Navigation -->
+        <nav class="main-nav" role="navigation">
+          <ul class="nav-menu">
+            {% for link in linklists.main-menu.links %}
+              <li class="nav-item">
+                <a href="{{ link.url }}" class="nav-link {% if link.active %}active{% endif %}">
+                  {{ link.title }}
+                </a>
+                {% if link.links.size > 0 %}
+                  <ul class="dropdown-menu">
+                    {% for child_link in link.links %}
+                      <li class="dropdown-item">
+                        <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </nav>
+        
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="/search" class="header-action search-toggle" aria-label="بحث">
+            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </a>
+          <a href="/account" class="header-action" aria-label="حسابي">
+            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </a>
+          <a href="/cart" class="header-action cart-toggle" aria-label="السلة">
+            <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav" role="navigation">
+      <div class="mobile-nav-header">
+        <button class="mobile-menu-close" aria-label="إغلاق القائمة">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      <ul class="mobile-nav-menu">
+        {% for link in linklists.main-menu.links %}
+          <li class="mobile-nav-item">
+            <a href="{{ link.url }}" class="mobile-nav-link {% if link.active %}active{% endif %}">
+              {{ link.title }}
+            </a>
+            {% if link.links.size > 0 %}
+              <ul class="mobile-dropdown-menu">
+                {% for child_link in link.links %}
+                  <li class="mobile-dropdown-item">
+                    <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
 
-    {%- if settings.favicon != blank -%}
-      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
-    {%- endif -%}
+  <!-- Main Content -->
+  <main id="main-content" role="main">
+    {{ content_for_layout }}
+  </main>
 
-    <title>{{ page_title }}</title>
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 class="footer-heading">{{ shop.name }}</h3>
+          <p class="footer-description">{{ settings.footer_description }}</p>
+          <div class="social-links">
+            {% if settings.social_facebook_link %}
+              <a href="{{ settings.social_facebook_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if settings.social_instagram_link %}
+              <a href="{{ settings.social_instagram_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"/>
+                  <path d="M10 5a5 5 0 100 10 5 5 0 000-10zM10 13a3 3 0 110-6 3 3 0 010 6z"/>
+                  <circle cx="15" cy="5" r="1.5"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if settings.social_twitter_link %}
+              <a href="{{ settings.social_twitter_link }}" class="social-link" target="_blank" rel="noopener">
+                <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3 class="footer-heading">روابط سريعة</h3>
+          <ul class="footer-links">
+            {% for link in linklists.footer.links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3 class="footer-heading">الدعم</h3>
+          <ul class="footer-links">
+            <li><a href="/pages/contact">اتصل بنا</a></li>
+            <li><a href="/pages/shipping">الشحن والتوصيل</a></li>
+            <li><a href="/pages/returns">الإرجاع والاستبدال</a></li>
+            <li><a href="/pages/faq">الأسئلة الشائعة</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3 class="footer-heading">النشرة البريدية</h3>
+          <p class="footer-description">اشترك للحصول على أحدث العروض والتحديثات</p>
+          {% form 'customer' %}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter-form">
+              <input type="email" name="contact[email]" class="newsletter-input" placeholder="بريدك الإلكتروني" required>
+              <button type="submit" class="newsletter-button">اشترك</button>
+            </div>
+          {% endform %}
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p class="copyright">&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. جميع الحقوق محفوظة.</p>
+          <div class="payment-methods">
+            {% for type in shop.enabled_payment_types %}
+              <span class="payment-method">{{ type | payment_type_svg_tag }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
+  <!-- Cart Drawer -->
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <h3 class="cart-drawer-title">سلة التسوق</h3>
+      <button class="cart-drawer-close" aria-label="إغلاق السلة">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-drawer-content">
+      <div class="cart-items" id="cart-items">
+        {% if cart.item_count > 0 %}
+          {% for item in cart.items %}
+            <div class="cart-item" data-item-id="{{ item.id }}">
+              <div class="cart-item-image">
+                <img src="{{ item.image | image_url: width: 100 }}" alt="{{ item.title }}" loading="lazy">
+              </div>
+              <div class="cart-item-details">
+                <h4 class="cart-item-title">{{ item.title }}</h4>
+                <p class="cart-item-price">{{ item.final_price | money }}</p>
+                <div class="cart-item-quantity">
+                  <button class="quantity-minus" data-item-id="{{ item.id }}" aria-label="تقليل الكمية">-</button>
+                  <input type="number" value="{{ item.quantity }}" min="1" class="quantity-input" data-item-id="{{ item.id }}">
+                  <button class="quantity-plus" data-item-id="{{ item.id }}" aria-label="زيادة الكمية">+</button>
+                </div>
+              </div>
+              <button class="cart-item-remove" data-item-id="{{ item.id }}" aria-label="إزالة المنتج">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M6 6l8 8M6 14l8-8" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </button>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="cart-empty">
+            <p>سلة التسوق فارغة</p>
+            <a href="/collections/all" class="btn btn-primary">تسوق الآن</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    {% if cart.item_count > 0 %}
+      <div class="cart-drawer-footer">
+        <div class="cart-total">
+          <span>المجموع:</span>
+          <span class="cart-total-price">{{ cart.total_price | money }}</span>
+        </div>
+        <a href="/checkout" class="btn btn-primary btn-block">إتمام الشراء</a>
+      </div>
     {% endif %}
+  </div>
 
-    {{ content_for_header }}
+  <!-- Search Modal -->
+  <div class="search-modal" id="search-modal">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <h3 class="search-modal-title">بحث</h3>
+        <button class="search-modal-close" aria-label="إغلاق البحث">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="search-modal-body">
+        <form action="/search" method="get" class="search-form" role="search">
+          <input type="search" name="q" placeholder="ابحث عن المنتجات..." class="search-input" required>
+          <button type="submit" class="search-button">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </button>
+        </form>
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </div>
+  </div>
 
-    {% render 'social-meta-tags' %}
-
-    {{ 'style.css' | asset_url | stylesheet_tag }}
-    {{ 'script.js' | asset_url | script_tag, defer: true }}
-  </head>
-
-  <body class="dark-mode">
-    {% section 'header' %}
-    <main role="main">
-      {{ content_for_layout }}
-    </main>
-    {% section 'footer' %}
-  </body>
+  <!-- Toast Notifications -->
+  <div class="toast-container" id="toast-container"></div>
+</body>
 </html>

@@ -1,40 +1,57 @@
 {
   "sections": {
-    "banner": {
-      "type": "banner",
+    "hero": {
+      "type": "hero",
       "settings": {
-        "title": "مرحباً بك في إلكترونياتكس",
-        "subtitle": "<p>أحدث الأجهزة الإلكترونية بأسعار لا تقبل المنافسة</p>",
-        "button_1_text": "تسوق الآن",
-        "button_2_text": "العروض"
+        "title": "مرحباً بك في متجرنا",
+        "subtitle": "أفضل المنتجات بأسعار تنافسية",
+        "button_text": "تسوق الآن",
+        "button_link": "/collections/all",
+        "secondary_button_text": "تعرف علينا",
+        "secondary_button_link": "/pages/about-us"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "featured-products": {
+      "type": "featured-products",
       "settings": {
-        "title": "منتجات مميزة",
-        "collection": "frontpage",
+        "title": "المنتجات المميزة",
+        "subtitle": "اكتشف تشكيلتنا المختارة بعناية",
+        "collection": "all",
         "products_to_show": 8,
-        "show_view_all": true
+        "show_view_all": true,
+        "view_all_text": "عرض جميع المنتجات"
       }
     },
-    "multi_column": {
-      "type": "multi-column",
+    "categories": {
+      "type": "categories",
       "settings": {
-        "title": "لماذا تختارنا؟"
+        "title": "الفئات",
+        "subtitle": "تصفح حسب الفئة",
+        "collections_to_show": 6
       }
     },
     "testimonials": {
       "type": "testimonials",
       "settings": {
-        "title": "آراء العملاء"
+        "title": "آراء العملاء",
+        "subtitle": "ماذا يقول عملاؤنا عنا",
+        "testimonials_to_show": 3
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "اشترك في نشرتنا البريدية",
+        "subtitle": "احصل على أحدث العروض والتحديثات",
+        "button_text": "اشترك"
       }
     }
   },
   "order": [
-    "banner",
-    "featured_collection",
-    "multi_column",
-    "testimonials"
+    "hero",
+    "featured-products",
+    "categories",
+    "testimonials",
+    "newsletter"
   ]
 }

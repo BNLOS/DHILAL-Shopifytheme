@@ -1,184 +1,161 @@
-[
-  {
-    "name": "إعدادات عامة",
-    "settings": [
-      {
-        "type": "image_picker",
-        "id": "favicon",
-        "label": "أيقونة الموقع"
-      },
-      {
-        "type": "text",
-        "id": "shop_name",
-        "label": "اسم المتجر",
-        "default": "إلكترونياتكس"
-      },
-      {
-        "type": "color",
-        "id": "color_primary",
-        "label": "اللون الأساسي",
-        "default": "#00d4ff"
-      },
-      {
-        "type": "color",
-        "id": "color_secondary",
-        "label": "اللون الثانوي",
-        "default": "#00ff88"
-      },
-      {
-        "type": "font_picker",
-        "id": "heading_font",
-        "label": "خط العناوين",
-        "default": "helvetica_n4"
-      },
-      {
-        "type": "font_picker",
-        "id": "body_font",
-        "label": "خط النصوص",
-        "default": "helvetica_n4"
-      }
-    ]
+{
+  "name": {
+    "ar": "إعدادات السمة"
   },
-  {
-    "name": "إعدادات الشريط العلوي",
-    "settings": [
-      {
-        "type": "link_list",
-        "id": "main_menu",
-        "label": "القائمة الرئيسية"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_search",
-        "label": "إظهار زر البحث",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_account",
-        "label": "إظهار زر الحساب",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart",
-        "label": "إظهار زر السلة",
-        "default": true
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "ar": "معلومات المتجر"
       }
-    ]
-  },
-  {
-    "name": "إعدادات الفوتر",
-    "settings": [
-      {
-        "type": "link_list",
-        "id": "footer_menu_1",
-        "label": "قائمة الفوتر 1"
-      },
-      {
-        "type": "link_list",
-        "id": "footer_menu_2",
-        "label": "قائمة الفوتر 2"
-      },
-      {
-        "type": "link_list",
-        "id": "footer_menu_3",
-        "label": "قائمة الفوتر 3"
-      },
-      {
-        "type": "richtext",
-        "id": "footer_text",
-        "label": "نص الفوتر",
-        "default": "<p>متجر إلكترونياتكس - أفضل الأجهزة الإلكترونية بأسعار تنافسية</p>"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_social_icons",
-        "label": "إظهار أيقونات التواصل الاجتماعي",
-        "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "ar": "شعار المتجر"
       }
-    ]
-  },
-  {
-    "name": "إعدادات المنتجات",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "show_vendor",
-        "label": "إظهار اسم المورد",
-        "default": false
+    },
+    {
+      "type": "text",
+      "id": "footer_description",
+      "label": {
+        "ar": "وصف الفوتر"
       },
-      {
-        "type": "checkbox",
-        "id": "show_compare_price",
-        "label": "إظهار السعر قبل الخصم",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_sku",
-        "label": "إظهار رمز المنتج",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_image_zoom",
-        "label": "تفعيل تكبير الصورة",
-        "default": true
+      "default": {
+        "ar": "متجر إلكتروني متخصص في تقديم أفضل المنتجات بأسعار تنافسية"
       }
-    ]
-  },
-  {
-    "name": "إعدادات النشرة البريدية",
-    "settings": [
-      {
-        "type": "checkbox",
-        "id": "show_newsletter",
-        "label": "إظهار نموذج النشرة البريدية",
-        "default": true
-      },
-      {
-        "type": "text",
-        "id": "newsletter_title",
-        "label": "عنوان النشرة البريدية",
-        "default": "اشترك في نشرتنا البريدية"
-      },
-      {
-        "type": "richtext",
-        "id": "newsletter_text",
-        "label": "نص النشرة البريدية",
-        "default": "<p>احصل على أحدث العروض والمنتجات مباشرة في بريدك الإلكتروني</p>"
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "روابط التواصل الاجتماعي"
       }
-    ]
-  },
-  {
-    "name": "إعدادات وسائل التواصل الاجتماعي",
-    "settings": [
-      {
-        "type": "text",
-        "id": "social_facebook",
-        "label": "رابط فيسبوك"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter",
-        "label": "رابط تويتر"
-      },
-      {
-        "type": "text",
-        "id": "social_instagram",
-        "label": "رابط إنستغرام"
-      },
-      {
-        "type": "text",
-        "id": "social_youtube",
-        "label": "رابط يوتيوب"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok",
-        "label": "رابط تيك توك"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook_link",
+      "label": {
+        "ar": "فيسبوك"
       }
-    ]
-  }
-]
+    },
+    {
+      "type": "url",
+      "id": "social_instagram_link",
+      "label": {
+        "ar": "انستغرام"
+      }
+    },
+    {
+      "type": "url",
+      "id": "social_twitter_link",
+      "label": {
+        "ar": "تويتر"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "ألوان السمة"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": {
+        "ar": "اللون الأساسي"
+      },
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_secondary",
+      "label": {
+        "ar": "اللون الثانوي"
+      },
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": {
+        "ar": "لون التمييز"
+      },
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "الخطوط"
+      }
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": {
+        "ar": "خط العناوين"
+      },
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": {
+        "ar": "خط النص"
+      },
+      "default": "helvetica_n4"
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "إعدادات المنتجات"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": {
+        "ar": "إظهار اسم المورد"
+      },
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": {
+        "ar": "إظهار التقييمات"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_add",
+      "label": {
+        "ar": "تفعيل الإضافة السريعة"
+      },
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "إعدادات السلة"
+      }
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_cart_drawer",
+      "label": {
+        "ar": "تفعيل درج السلة"
+      },
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart_note",
+      "label": {
+        "ar": "إظهار ملاحظات السلة"
+      },
+      "default": true
+    }
+  ]
+}

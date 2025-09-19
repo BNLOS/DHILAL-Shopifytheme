@@ -2,24 +2,86 @@
   "sections": {
     "main": {
       "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "show_vendor": true
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_and_shipping": true
+          }
+        },
+        "variant-picker": {
+          "type": "variant-picker",
+          "settings": {
+            "show_variant_labels": true
+          }
+        },
+        "quantity-selector": {
+          "type": "quantity-selector",
+          "settings": {
+            "show_label": true
+          }
+        },
+        "buy-buttons": {
+          "type": "buy-buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "show_title": true
+          }
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "مشاركة"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant-picker",
+        "quantity-selector",
+        "buy-buttons",
+        "description",
+        "share"
+      ],
       "settings": {
+        "enable_sticky_info": true,
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "media_position": "left",
+        "image_zoom": "hover",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_video_looping": true,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
-    "recommendations": {
-      "type": "product-recommendations",
+    "related-products": {
+      "type": "related-products",
       "settings": {
-      }
-    },
-    "tech_specs": {
-      "type": "tech-specs",
-      "settings": {
-        "title": "المواصفات الفنية"
+        "title": "قد يعجبك أيضاً",
+        "products_to_show": 4,
+        "show_view_all": false
       }
     }
   },
   "order": [
     "main",
-    "recommendations",
-    "tech_specs"
+    "related-products"
   ]
 }
