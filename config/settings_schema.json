@@ -17,16 +17,6 @@
       }
     },
     {
-      "type": "text",
-      "id": "footer_description",
-      "label": {
-        "ar": "وصف الفوتر"
-      },
-      "default": {
-        "ar": "متجر إلكتروني متخصص في تقديم أفضل المنتجات بأسعار تنافسية"
-      }
-    },
-    {
       "type": "header",
       "content": {
         "ar": "روابط التواصل الاجتماعي"
@@ -47,13 +37,6 @@
       }
     },
     {
-      "type": "url",
-      "id": "social_twitter_link",
-      "label": {
-        "ar": "تويتر"
-      }
-    },
-    {
       "type": "header",
       "content": {
         "ar": "ألوان السمة"
@@ -69,93 +52,11 @@
     },
     {
       "type": "color",
-      "id": "color_secondary",
-      "label": {
-        "ar": "اللون الثانوي"
-      },
-      "default": "#1a1a1a"
-    },
-    {
-      "type": "color",
       "id": "color_accent",
       "label": {
         "ar": "لون التمييز"
       },
       "default": "#ffffff"
-    },
-    {
-      "type": "header",
-      "content": {
-        "ar": "الخطوط"
-      }
-    },
-    {
-      "type": "font_picker",
-      "id": "heading_font",
-      "label": {
-        "ar": "خط العناوين"
-      },
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "font_picker",
-      "id": "body_font",
-      "label": {
-        "ar": "خط النص"
-      },
-      "default": "helvetica_n4"
-    },
-    {
-      "type": "header",
-      "content": {
-        "ar": "إعدادات المنتجات"
-      }
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": {
-        "ar": "إظهار اسم المورد"
-      },
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "show_rating",
-      "label": {
-        "ar": "إظهار التقييمات"
-      },
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_quick_add",
-      "label": {
-        "ar": "تفعيل الإضافة السريعة"
-      },
-      "default": true
-    },
-    {
-      "type": "header",
-      "content": {
-        "ar": "إعدادات السلة"
-      }
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_cart_drawer",
-      "label": {
-        "ar": "تفعيل درج السلة"
-      },
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cart_note",
-      "label": {
-        "ar": "إظهار ملاحظات السلة"
-      },
-      "default": true
     }
   ]
 }

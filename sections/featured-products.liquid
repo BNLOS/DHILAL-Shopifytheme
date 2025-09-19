@@ -1,0 +1,75 @@
+{% schema %}
+{
+  "name": "Featured Products",
+  "class": "featured-products-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "العنوان",
+      "default": "المنتجات المميزة"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "العنوان الفرعي",
+      "default": "اكتشف تشكيلتنا المختارة بعناية"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "المجموعة"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "عدد المنتجات",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "إظهار زر عرض الكل",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "نص زر عرض الكل",
+      "default": "عرض جميع المنتجات"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products",
+      "category": "المنتجات"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="featured-products">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+      <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+    </div>
+    
+    <div class="product-grid">
+      {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+    
+    {% if section.settings.show_view_all %}
+      <div class="text-center">
+        <a href="{{ collections[section.settings.collection].url }}" class="btn btn-primary">
+          {{ section.settings.view_all_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</div>

@@ -16,42 +16,15 @@
       "settings": {
         "title": "المنتجات المميزة",
         "subtitle": "اكتشف تشكيلتنا المختارة بعناية",
-        "collection": "all",
+        "collection": "frontpage",
         "products_to_show": 8,
         "show_view_all": true,
         "view_all_text": "عرض جميع المنتجات"
-      }
-    },
-    "categories": {
-      "type": "categories",
-      "settings": {
-        "title": "الفئات",
-        "subtitle": "تصفح حسب الفئة",
-        "collections_to_show": 6
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "settings": {
-        "title": "آراء العملاء",
-        "subtitle": "ماذا يقول عملاؤنا عنا",
-        "testimonials_to_show": 3
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "title": "اشترك في نشرتنا البريدية",
-        "subtitle": "احصل على أحدث العروض والتحديثات",
-        "button_text": "اشترك"
       }
     }
   },
   "order": [
     "hero",
-    "featured-products",
-    "categories",
-    "testimonials",
-    "newsletter"
+    "featured-products"
   ]
 }

@@ -1,67 +1,131 @@
-<header class="header">
-  <div class="header__inner">
-    <a href="/" class="header__logo">
-      {{ settings.shop_name }}
-    </a>
-
-    <nav class="header__nav" role="navigation">
-      {% for link in linklists[settings.main_menu].links %}
-        {% assign child_list_handle = link.title | handleize %}
-        {% if linklists[child_list_handle].links != blank %}
-          <div class="header__nav-item has-dropdown">
-            <a href="{{ link.url }}">{{ link.title }}</a>
-            <div class="header__dropdown">
-              {% for childlink in linklists[child_list_handle].links %}
-                <a href="{{ childlink.url }}">{{ childlink.title }}</a>
-              {% endfor %}
-            </div>
-          </div>
-        {% else %}
-          <div class="header__nav-item">
-            <a href="{{ link.url }}">{{ link.title }}</a>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </nav>
-
-    <div class="header__icons">
-      {% if settings.show_search %}
-        <a href="/search" class="header__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="m21 21-4.35-4.35"></path>
-          </svg>
-        </a>
-      {% endif %}
-      
-      {% if settings.show_account %}
-        <a href="/account" class="header__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-        </a>
-      {% endif %}
-      
-      {% if settings.show_cart %}
-        <a href="/cart" class="header__icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 2 6 9H3l3 9h12l3-9h-3l-3-7"></path>
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-          </svg>
-          {% if cart.item_count > 0 %}
-            <span class="cart-count">{{ cart.item_count }}</span>
-          {% endif %}
-        </a>
-      {% endif %}
-    </div>
-  </div>
-</header>
-
 {% schema %}
 {
   "name": "Header",
-  "settings": []
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "شعار المتجر"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "القائمة الرئيسية",
+      "default": "main-menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_item",
+      "name": "عنصر القائمة",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "العنوان"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "الرابط"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
+
+<header class="site-header" role="banner">
+  <div class="container">
+    <div class="header-top">
+      <div class="logo">
+        <a href="/" class="logo-link">
+          {% if section.settings.logo %}
+            {{ section.settings.logo | image_url: width: 200 | image_tag: alt: shop.name, class: 'logo-img' }}
+          {% else %}
+            <span class="logo-text">{{ shop.name }}</span>
+          {% endif %}
+        </a>
+      </div>
+      
+      <!-- Mobile Menu Toggle -->
+      <button class="mobile-menu-toggle" aria-label="فتح القائمة">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      
+      <!-- Desktop Navigation -->
+      <nav class="main-nav" role="navigation">
+        <ul class="nav-menu">
+          {% for link in linklists[section.settings.main_menu].links %}
+            <li class="nav-item">
+              <a href="{{ link.url }}" class="nav-link {% if link.active %}active{% endif %}">
+                {{ link.title }}
+              </a>
+              {% if link.links.size > 0 %}
+                <ul class="dropdown-menu">
+                  {% for child_link in link.links %}
+                    <li class="dropdown-item">
+                      <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+      
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <a href="/search" class="header-action search-toggle" aria-label="بحث">
+          <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+        <a href="/account" class="header-action" aria-label="حسابي">
+          <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </a>
+        <a href="/cart" class="header-action cart-toggle" aria-label="السلة">
+          <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav" role="navigation">
+    <div class="mobile-nav-header">
+      <button class="mobile-menu-close" aria-label="إغلاق القائمة">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="mobile-nav-menu">
+      {% for link in linklists[section.settings.main_menu].links %}
+        <li class="mobile-nav-item">
+          <a href="{{ link.url }}" class="mobile-nav-link {% if link.active %}active{% endif %}">
+            {{ link.title }}
+          </a>
+          {% if link.links.size > 0 %}
+            <ul class="mobile-dropdown-menu">
+              {% for child_link in link.links %}
+                <li class="mobile-dropdown-item">
+                  <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>

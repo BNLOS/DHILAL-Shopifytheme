@@ -1,96 +1,32 @@
 {
   "general": {
-    "shop_name": "إلكترونياتكس",
-    "cart": "السلة",
-    "search": "بحث",
-    "menu": "القائمة",
-    "account": "حسابي",
-    "checkout": "إتمام الشراء",
-    "home": "الرئيسية",
-    "contact": "اتصل بنا",
-    "about": "من نحن"
-  },
-  "product": {
-    "add_to_cart": "أضف إلى السلة",
-    "sold_out": "نفذت الكمية",
-    "unavailable": "غير متوفر",
-    "view_details": "عرض التفاصيل",
-    "tech_specs": "المواصفات الفنية",
-    "reviews": "التقييمات",
-    "price": "السعر",
-    "compare_price": "السعر قبل الخصم",
-    "quantity": "الكمية",
-    "in_stock": "متوفر",
-    "out_of_stock": "غير متوفر",
-    "add_to_wishlist": "أضف إلى المفضلة",
-    "recommendations": "قد يعجبك أيضاً"
-  },
-  "collection": {
-    "filter_by": "تصفية حسب",
-    "sort_by": "ترتيب حسب",
-    "showing": "عرض",
-    "products": "منتجات",
-    "no_products": "لا توجد منتجات",
-    "view_all": "عرض الكل",
-    "featured_products": "منتجات مميزة",
-    "new_arrivals": "وصول حديث",
-    "best_sellers": "الأكثر مبيعًا"
-  },
-  "sections": {
-    "banner": "لافتة رئيسية",
-    "featured_products": "منتجات مميزة",
-    "new_arrivals": "وصول حديث",
-    "best_sellers": "الأكثر مبيعًا",
-    "video_showcase": "معرض الفيديو",
-    "tech_specs": "المواصفات الفنية",
-    "testimonials": "آراء العملاء",
-    "faq": "الأسئلة الشائعة",
-    "multi_column": "أعمدة متعددة"
-  },
-  "footer": {
-    "about_us": "من نحن",
-    "contact": "اتصل بنا",
-    "privacy_policy": "سياسة الخصوصية",
-    "terms_of_service": "شروط الخدمة",
-    "faq": "الأسئلة الشائعة",
-    "shipping_info": "معلومات الشحن",
-    "return_policy": "سياسة الإرجاع",
-    "follow_us": "تابعنا",
-    "newsletter": "النشرة البريدية",
-    "subscribe": "اشترك الآن",
-    "email_placeholder": "بريدك الإلكتروني",
-    "all_rights_reserved": "جميع الحقوق محفوظة"
-  },
-  "form": {
-    "name": "الاسم",
-    "email": "البريد الإلكتروني",
-    "message": "الرسالة",
-    "submit": "إرسال",
-    "required": "مطلوب",
-    "invalid_email": "بريد إلكتروني غير صالح"
-  },
-  "cart": {
-    "title": "سلة التسوق",
-    "empty": "سلة التسوق فارغة",
-    "continue_shopping": "مواصلة التسوق",
-    "subtotal": "المجموع الفرعي",
-    "discount": "الخصم",
-    "total": "المجموع",
-    "checkout": "إتمام الشراء",
-    "update": "تحديث",
-    "remove": "إزالة",
-    "quantity": "الكمية"
-  },
-  "search": {
-    "title": "بحث",
-    "placeholder": "ابحث عن منتج...",
-    "results": "نتائج البحث",
-    "no_results": "لا توجد نتائج",
-    "search_again": "ابحث مرة أخرى"
-  },
-  "errors": {
-    "404": "الصفحة غير موجودة",
-    "404_message": "عذراً، الصفحة التي تبحث عنها غير موجودة.",
-    "back_to_home": "العودة للرئيسية"
+    "accessibility": {
+      "skip_to_content": "تخطي إلى المحتوى الرئيسي",
+      "close_search": "إغلاق البحث",
+      "close_cart": "إغلاق السلة",
+      "close_menu": "إغلاق القائمة"
+    },
+    "search": {
+      "placeholder": "ابحث عن المنتجات...",
+      "no_results": "لا توجد نتائج للبحث",
+      "results": "نتائج البحث"
+    },
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "سلة التسوق فارغة",
+      "add_to_cart": "أضف إلى السلة",
+      "remove": "إزالة",
+      "quantity": "الكمية",
+      "total": "المجموع",
+      "checkout": "إتمام الشراء"
+    },
+    "products": {
+      "featured": "المنتجات المميزة",
+      "view_all": "عرض جميع المنتجات",
+      "quick_view": "معاينة سريعة",
+      "add_to_wishlist": "إضافة للمفضلة",
+      "compare_at_price": "السعر الأصلي",
+      "sale": "خصم"
+    }
   }
 }
