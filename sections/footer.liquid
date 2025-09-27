@@ -1,0 +1,90 @@
+{% schema %}
+{
+  "name": "Footer",
+  "class": "footer-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "footer_description",
+      "label": "وصف الفوتر",
+      "default": "متجر إلكتروني متخصص في تقديم أفضل المنتجات بأسعار تنافسية"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "قائمة الفوتر"
+    }
+  ]
+}
+{% endschema %}
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3 class="footer-heading">{{ shop.name }}</h3>
+        <p class="footer-description">{{ section.settings.footer_description }}</p>
+        <div class="social-links">
+          {% if settings.social_facebook_link %}
+            <a href="{{ settings.social_facebook_link }}" class="social-link" target="_blank" rel="noopener">
+              <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+              </svg>
+            </a>
+          {% endif %}
+          {% if settings.social_instagram_link %}
+            <a href="{{ settings.social_instagram_link }}" class="social-link" target="_blank" rel="noopener">
+              <svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10 2a8 8 0 100 16 8 8 0 000-16zM0 10C0 4.477 4.477 0 10 0s10 4.477 10 10-4.477 10-10 10S0 15.523 0 10z"/>
+                <path d="M10 5a5 5 0 100 10 5 5 0 000-10zM10 13a3 3 0 110-6 3 3 0 010 6z"/>
+                <circle cx="15" cy="5" r="1.5"/>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-heading">روابط سريعة</h3>
+        <ul class="footer-links">
+          {% for link in linklists[section.settings.footer_menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-heading">الدعم</h3>
+        <ul class="footer-links">
+          <li><a href="/pages/contact">اتصل بنا</a></li>
+          <li><a href="/pages/shipping">الشحن والتوصيل</a></li>
+          <li><a href="/pages/returns">الإرجاع والاستبدال</a></li>
+          <li><a href="/pages/faq">الأسئلة الشائعة</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3 class="footer-heading">النشرة البريدية</h3>
+        <p class="footer-description">اشترك للحصول على أحدث العروض والتحديثات</p>
+        {% form 'customer' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-form">
+            <input type="email" name="contact[email]" class="newsletter-input" placeholder="بريدك الإلكتروني" required>
+            <button type="submit" class="newsletter-button">اشترك</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <div class="footer-bottom-content">
+        <p class="copyright">&copy; {{ 'now' | date: "%Y" }} {{ shop.name }}. جميع الحقوق محفوظة.</p>
+        <div class="payment-methods">
+          {% for type in shop.enabled_payment_types %}
+            <span class="payment-method">{{ type | payment_type_svg_tag }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

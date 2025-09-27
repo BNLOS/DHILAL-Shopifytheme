@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "title": "مرحباً بك في متجرنا",
+        "subtitle": "أفضل المنتجات بأسعار تنافسية",
+        "button_text": "تسوق الآن",
+        "button_link": "/collections/all",
+        "secondary_button_text": "تعرف علينا",
+        "secondary_button_link": "/pages/about-us"
+      }
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "title": "المنتجات المميزة",
+        "subtitle": "اكتشف تشكيلتنا المختارة بعناية",
+        "collection": "frontpage",
+        "products_to_show": 8,
+        "show_view_all": true,
+        "view_all_text": "عرض جميع المنتجات"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured-products"
+  ]
+}

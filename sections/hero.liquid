@@ -1,0 +1,61 @@
+{% schema %}
+{
+  "name": "Hero",
+  "class": "hero-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "العنوان",
+      "default": "مرحباً بك في متجرنا"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "العنوان الفرعي",
+      "default": "أفضل المنتجات بأسعار تنافسية"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "نص الزر",
+      "default": "تسوق الآن"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "رابط الزر",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "نص الزر الثانوي",
+      "default": "تعرف علينا"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "رابط الزر الثانوي",
+      "default": "/pages/about-us"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "category": "المحتوى"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">{{ section.settings.title }}</h1>
+    <p class="hero-subtitle">{{ section.settings.subtitle }}</p>
+    <div class="hero-buttons">
+      <a href="{{ section.settings.button_link }}" class="btn btn-primary">{{ section.settings.button_text }}</a>
+      <a href="{{ section.settings.secondary_button_link }}" class="btn btn-secondary">{{ section.settings.secondary_button_text }}</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+{
+  "name": {
+    "ar": "إعدادات السمة"
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": {
+        "ar": "معلومات المتجر"
+      }
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": {
+        "ar": "شعار المتجر"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "روابط التواصل الاجتماعي"
+      }
+    },
+    {
+      "type": "url",
+      "id": "social_facebook_link",
+      "label": {
+        "ar": "فيسبوك"
+      }
+    },
+    {
+      "type": "url",
+      "id": "social_instagram_link",
+      "label": {
+        "ar": "انستغرام"
+      }
+    },
+    {
+      "type": "header",
+      "content": {
+        "ar": "ألوان السمة"
+      }
+    },
+    {
+      "type": "color",
+      "id": "color_primary",
+      "label": {
+        "ar": "اللون الأساسي"
+      },
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": {
+        "ar": "لون التمييز"
+      },
+      "default": "#ffffff"
+    }
+  ]
+}

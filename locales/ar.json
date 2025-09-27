@@ -1,0 +1,32 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "تخطي إلى المحتوى الرئيسي",
+      "close_search": "إغلاق البحث",
+      "close_cart": "إغلاق السلة",
+      "close_menu": "إغلاق القائمة"
+    },
+    "search": {
+      "placeholder": "ابحث عن المنتجات...",
+      "no_results": "لا توجد نتائج للبحث",
+      "results": "نتائج البحث"
+    },
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "سلة التسوق فارغة",
+      "add_to_cart": "أضف إلى السلة",
+      "remove": "إزالة",
+      "quantity": "الكمية",
+      "total": "المجموع",
+      "checkout": "إتمام الشراء"
+    },
+    "products": {
+      "featured": "المنتجات المميزة",
+      "view_all": "عرض جميع المنتجات",
+      "quick_view": "معاينة سريعة",
+      "add_to_wishlist": "إضافة للمفضلة",
+      "compare_at_price": "السعر الأصلي",
+      "sale": "خصم"
+    }
+  }
+}

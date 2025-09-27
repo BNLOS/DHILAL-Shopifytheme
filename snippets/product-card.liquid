@@ -1,0 +1,38 @@
+<div class="product-card">
+  <div class="product-image">
+    <a href="{{ product.url }}">
+      <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}" loading="lazy">
+    </a>
+    {% if product.compare_at_price > product.price %}
+      <span class="product-badge">خصم</span>
+    {% endif %}
+    <div class="product-actions">
+      <button class="product-action-btn quick-view-btn" data-product-id="{{ product.id }}" aria-label="معاينة سريعة">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" stroke-width="2"/>
+          <path d="M10 3C7 3 4.5 4.5 2 7c1.5 2.5 4 4 7 4s5.5-1.5 7-4c-1.5-2.5-4-4-7-4z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+      <button class="product-action-btn wishlist-btn" data-product-id="{{ product.id }}" aria-label="إضافة للمفضلة">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    <div class="product-price">
+      {% if product.compare_at_price > product.price %}
+        <span class="compare-price">{{ product.compare_at_price | money }}</span>
+      {% endif %}
+      <span class="current-price">{{ product.price | money }}</span>
+    </div>
+    <form method="post" action="/cart/add" class="add-to-cart-form">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      <button type="submit" class="add-to-cart-btn">أضف إلى السلة</button>
+    </form>
+  </div>
+</div>
